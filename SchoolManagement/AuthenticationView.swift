@@ -24,6 +24,26 @@ struct AuthenticationView: View {
     @State private var hasAgreedToTerms: Bool = false
     
     @State private var authenticationType: AuthenticationType = .login
+    
+    // Form validation for enabling/disabling the primary action button
+    private var isFormValid: Bool {
+        let email = viewModel.email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = viewModel.password.trimmingCharacters(in: .whitespacesAndNewlines)
+        let emailValid = isValidEmail(email)
+        let passwordValid = !password.isEmpty
+        switch authenticationType {
+        case .login:
+            return emailValid && passwordValid
+        case .register:
+            return emailValid && passwordValid && hasAgreedToTerms
+        }
+    }
+
+    private func isValidEmail(_ email: String) -> Bool {
+        // Simple email format check; mirrors AuthViewModel's validation
+        email.contains("@") && email.contains(".")
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -104,6 +124,7 @@ struct AuthenticationView: View {
                     Text(authenticationType == .login ? "Login" : "Register")
                 }
                 .buttonStyle(AuthenticationButtonType())
+                .disabled(!isFormValid)
 
                 
                 BottomView(authenticationType: $authenticationType)
@@ -155,6 +176,7 @@ struct AgreeStyle: ToggleStyle {
 }
 
 struct AuthenticationButtonType: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
@@ -172,7 +194,7 @@ struct AuthenticationButtonType: ButtonStyle {
             )
             .cornerRadius(15)
             .brightness(configuration.isPressed ? 0.05 : 0)
-            .opacity(configuration.isPressed ? 0.5 : 1)
+            .opacity(isEnabled ? (configuration.isPressed ? 0.7 : 1) : 0.4)
             .padding(.vertical, 12)
     }
 }
