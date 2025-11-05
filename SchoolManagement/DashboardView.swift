@@ -13,7 +13,8 @@ struct DashboardView: View {
 
     var body: some View {
         let vm = viewModel
-        VStack(spacing: 16) {
+        
+        VStack {
             TabView {
                 HomeView()
                     .tabItem {
@@ -34,6 +35,8 @@ struct DashboardView: View {
         }
         .navigationTitle("Dashboard")
         .navigationBarBackButtonHidden(true)
+        
+        
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
@@ -54,6 +57,7 @@ struct DashboardView: View {
                 }
             }
         }
+        
     }
 }
 
