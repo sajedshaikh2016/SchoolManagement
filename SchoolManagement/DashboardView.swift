@@ -24,6 +24,7 @@ struct DashboardView: View {
                 .font(.system(size: 28, weight: .bold, design: .rounded))
         }
         .navigationTitle("Dashboard")
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
