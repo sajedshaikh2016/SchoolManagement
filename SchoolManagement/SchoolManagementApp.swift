@@ -6,12 +6,34 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct SchoolManagementApp: App {
     var body: some Scene {
         WindowGroup {
-            AuthenticationView()
+            AuthenticationRoot()
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }
 }
+
+//import CoreData
+
+struct AuthenticationRoot: View {
+    @Environment(\.managedObjectContext) private var context
+    @StateObject private var viewModel: AuthViewModel
+
+    init() {
+        let context = PersistenceController.shared.container.viewContext
+        _viewModel = StateObject(wrappedValue: AuthViewModel(context: context))
+    }
+
+    var body: some View {
+        NavigationStack {
+            AuthenticationView()
+                .environmentObject(viewModel)
+        }
+    }
+}
+

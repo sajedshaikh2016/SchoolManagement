@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 enum AuthenticationType {
     case login
@@ -14,9 +15,7 @@ enum AuthenticationType {
 
 struct AuthenticationView: View {
     @Environment(\.colorScheme) private var colorScheme
-    
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @EnvironmentObject private var viewModel: AuthViewModel
     
     @FocusState private var isEmailFocused
     @FocusState private var isPasswordFocused
@@ -30,15 +29,20 @@ struct AuthenticationView: View {
             TopView()
             SegmentedView(authenticationType: $authenticationType)
             
+            NavigationLink(destination: DashboardView(), isActive: $viewModel.isAuthenticated) {
+                EmptyView()
+            }
+            .hidden()
+            
             VStack(spacing: 15) {
-                TextField(text: $email) {
+                TextField(text: $viewModel.email) {
                     Text("Email")
                 }
                 .focused($isEmailFocused)
                 .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isEmailFocused))
                 
                 ZStack {
-                    TextField(text: $password) {
+                    TextField(text: $viewModel.password) {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
@@ -57,7 +61,7 @@ struct AuthenticationView: View {
                     .opacity(showPassword ? 1 : 0)
                     .zIndex(1)
                     
-                    SecureField(text: $password) {
+                    SecureField(text: $viewModel.password) {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
@@ -91,7 +95,15 @@ struct AuthenticationView: View {
             }
             
             Button {
-                
+                if authenticationType == .login {
+                    Task { await viewModel.login() }
+                } else {
+                    guard hasAgreedToTerms else {
+                        viewModel.errorMessage = "Please agree to the Terms and Privacy Policy"
+                        return
+                    }
+                    Task { await viewModel.register() }
+                }
             } label: {
                 Text(authenticationType == .login ? "Login" : "Register")
             }
@@ -107,6 +119,11 @@ struct AuthenticationView: View {
                 isPasswordFocused = false
             })
         )
+        .alert("Error", isPresented: Binding(get: { viewModel.errorMessage != nil }, set: { if !$0 { viewModel.errorMessage = nil } })) {
+            Button("OK", role: .cancel) { viewModel.errorMessage = nil }
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }
 
@@ -347,4 +364,6 @@ struct BottomView: View {
 
 #Preview {
     AuthenticationView()
+        .environmentObject(AuthViewModel(context: PersistenceController.shared.container.viewContext))
 }
+
