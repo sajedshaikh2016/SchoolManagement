@@ -18,8 +18,6 @@ struct SchoolManagementApp: App {
     }
 }
 
-//import CoreData
-
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
     @StateObject private var viewModel: AuthViewModel
