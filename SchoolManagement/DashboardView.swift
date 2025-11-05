@@ -14,14 +14,23 @@ struct DashboardView: View {
     var body: some View {
         let vm = viewModel
         VStack(spacing: 16) {
-            Image(systemName: "graduationcap.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80)
-                .foregroundStyle(.blue)
-
-            Text("Welcome to the Dashboard")
-                .font(.system(size: 28, weight: .bold, design: .rounded))
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                ProfileView()
+                    .tabItem {
+                        Image(systemName: "person.crop.circle.fill")
+                        Text("Profile")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
+            }
         }
         .navigationTitle("Dashboard")
         .navigationBarBackButtonHidden(true)
