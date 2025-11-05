@@ -25,104 +25,104 @@ struct AuthenticationView: View {
     
     @State private var authenticationType: AuthenticationType = .login
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            TopView()
-            SegmentedView(authenticationType: $authenticationType)
-            
-            NavigationLink(destination: DashboardView(), isActive: $viewModel.isAuthenticated) {
-                EmptyView()
-            }
-            .hidden()
-            
-            VStack(spacing: 15) {
-                TextField(text: $viewModel.email) {
-                    Text("Email")
-                }
-                .focused($isEmailFocused)
-                .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isEmailFocused))
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                TopView()
+                SegmentedView(authenticationType: $authenticationType)
                 
-                ZStack {
-                    TextField(text: $viewModel.password) {
-                        Text("Password")
+                VStack(spacing: 15) {
+                    TextField(text: $viewModel.email) {
+                        Text("Email")
                     }
-                    .focused($isPasswordFocused)
-                    .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
-                    .overlay(alignment: .trailing, content: {
-                        Button {
-                            withAnimation {
-                                showPassword.toggle()
-                            }
-                        } label: {
-                            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                .padding()
-                                .foregroundStyle(Color(uiColor: .darkGray))
-                        }
-                    })
-                    .opacity(showPassword ? 1 : 0)
-                    .zIndex(1)
+                    .focused($isEmailFocused)
+                    .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isEmailFocused))
                     
-                    SecureField(text: $viewModel.password) {
-                        Text("Password")
-                    }
-                    .focused($isPasswordFocused)
-                    .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            withAnimation {
-                                showPassword.toggle()
-                            }
-                        } label: {
-                            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                .padding()
-                                .foregroundStyle(Color(uiColor: .darkGray))
+                    ZStack {
+                        TextField(text: $viewModel.password) {
+                            Text("Password")
                         }
+                        .focused($isPasswordFocused)
+                        .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                        .overlay(alignment: .trailing, content: {
+                            Button {
+                                withAnimation {
+                                    showPassword.toggle()
+                                }
+                            } label: {
+                                Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                                    .padding()
+                                    .foregroundStyle(Color(uiColor: .darkGray))
+                            }
+                        })
+                        .opacity(showPassword ? 1 : 0)
+                        .zIndex(1)
                         
-                    }
-                    .opacity(showPassword ? 0 : 1)
-                }
-                
-                if authenticationType == .register {
-                    HStack(alignment: .top, content: {
-                        Toggle(isOn: $hasAgreedToTerms) {
+                        SecureField(text: $viewModel.password) {
+                            Text("Password")
+                        }
+                        .focused($isPasswordFocused)
+                        .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                        .overlay(alignment: .trailing) {
+                            Button {
+                                withAnimation {
+                                    showPassword.toggle()
+                                }
+                            } label: {
+                                Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                                    .padding()
+                                    .foregroundStyle(Color(uiColor: .darkGray))
+                            }
                             
                         }
-                        .toggleStyle(AgreeStyle())
-                        
-                        Text("I agree to the **Terms** and **Privacy Policy**.")
-                    })
+                        .opacity(showPassword ? 0 : 1)
+                    }
+                    
+                    if authenticationType == .register {
+                        HStack(alignment: .top, content: {
+                            Toggle(isOn: $hasAgreedToTerms) {
+                                
+                            }
+                            .toggleStyle(AgreeStyle())
+                            
+                            Text("I agree to the **Terms** and **Privacy Policy**.")
+                        })
+                    }
+                    
                 }
                 
-            }
-            
-            Button {
-                if authenticationType == .login {
-                    Task { await viewModel.login() }
-                } else {
-                    guard hasAgreedToTerms else {
-                        viewModel.errorMessage = "Please agree to the Terms and Privacy Policy"
-                        return
+                Button {
+                    if authenticationType == .login {
+                        Task { await viewModel.login() }
+                    } else {
+                        guard hasAgreedToTerms else {
+                            viewModel.errorMessage = "Please agree to the Terms and Privacy Policy"
+                            return
+                        }
+                        Task { await viewModel.register() }
                     }
-                    Task { await viewModel.register() }
+                } label: {
+                    Text(authenticationType == .login ? "Login" : "Register")
                 }
-            } label: {
-                Text(authenticationType == .login ? "Login" : "Register")
-            }
-            .buttonStyle(AuthenticationButtonType())
+                .buttonStyle(AuthenticationButtonType())
 
-            
-            BottomView(authenticationType: $authenticationType)
-        }
-        .padding()
-        .gesture(
-            TapGesture().onEnded ({
-                isEmailFocused = false
-                isPasswordFocused = false
-            })
-        )
-        .alert("Error", isPresented: Binding(get: { viewModel.errorMessage != nil }, set: { if !$0 { viewModel.errorMessage = nil } })) {
-            Button("OK", role: .cancel) { viewModel.errorMessage = nil }
-        } message: {
-            Text(viewModel.errorMessage ?? "")
+                
+                BottomView(authenticationType: $authenticationType)
+            }
+            .padding()
+            .gesture(
+                TapGesture().onEnded ({
+                    isEmailFocused = false
+                    isPasswordFocused = false
+                })
+            )
+            .alert("Error", isPresented: Binding(get: { viewModel.errorMessage != nil }, set: { if !$0 { viewModel.errorMessage = nil } })) {
+                Button("OK", role: .cancel) { viewModel.errorMessage = nil }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
+            .navigationDestination(isPresented: $viewModel.isAuthenticated) {
+                DashboardView()
+            }
         }
     }
 }
