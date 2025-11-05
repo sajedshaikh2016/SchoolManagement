@@ -86,5 +86,12 @@ final class AuthViewModel: ObservableObject {
             errorMessage = "Login failed. Please try again."
         }
     }
-}
 
+    func logout() {
+        // Reset authentication state and clear sensitive fields
+        isAuthenticated = false
+        email = ""
+        password = ""
+        errorMessage = nil
+    }
+}

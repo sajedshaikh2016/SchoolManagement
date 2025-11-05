@@ -30,8 +30,8 @@ struct AuthenticationRoot: View {
     var body: some View {
         NavigationStack {
             AuthenticationView()
-                .environmentObject(viewModel)
         }
+        .environmentObject(viewModel)
     }
 }
 
