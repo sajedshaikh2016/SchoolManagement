@@ -120,6 +120,16 @@ struct AuthenticationView: View {
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
+            .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
+                if newValue {
+                    // Clear sensitive fields after successful auth
+                    viewModel.email = ""
+                    viewModel.password = ""
+                    // Dismiss keyboard focus
+                    isEmailFocused = false
+                    isPasswordFocused = false
+                }
+            }
             .navigationDestination(isPresented: $viewModel.isAuthenticated) {
                 DashboardView()
             }
