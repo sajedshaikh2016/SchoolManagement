@@ -183,7 +183,7 @@ struct AuthenticationButtonType: ButtonStyle {
             .font(.system(size: 20, weight: .bold, design: .rounded))
             .background(
                 LinearGradient(stops: [
-                    .init(color: Color.blue, location: 0.0),
+                    .init(color: Color.black, location: 0.0),
                     .init(color: Color.black, location: 1.0)
                 ],
                                startPoint: .leading,
@@ -210,7 +210,7 @@ struct AuthenticationTextFieldStyle: TextFieldStyle {
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .stroke(isFocused.wrappedValue ? Color.blue : Color.gray.opacity(0.5), lineWidth: 1)
+                        .stroke(isFocused.wrappedValue ? Color.black : Color.gray.opacity(0.5), lineWidth: 1)
                         .zIndex(1)
                     RoundedRectangle(cornerRadius: 16)
                         .fill(colorScheme == .light ? Color(.lightGray) : Color(UIColor.darkGray))
@@ -333,6 +333,7 @@ struct BottomView: View {
                 } label: {
                     Text(authenticationType == .login ? "Register" : "Login")
                         .font(Font.system(size: 15, weight: .bold, design: .rounded))
+                        .foregroundColor(.black)
                 }
 
             }
@@ -396,4 +397,3 @@ struct BottomView: View {
     AuthenticationView()
         .environmentObject(AuthViewModel(context: PersistenceController.shared.container.viewContext))
 }
-

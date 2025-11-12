@@ -11,6 +11,7 @@ import SwiftUI
 // enum AuthenticationType { case login, register }
 
 struct AdminAuthenticationView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var adminVM: AdminAuthViewModel
     @FocusState private var isUserFocused: Bool
     @FocusState private var isPasswordFocused: Bool
@@ -40,26 +41,59 @@ struct AdminAuthenticationView: View {
                 } label: {
                     Text("Login")
                         .fontWeight(authType == .login ? .semibold : .regular)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, authType == .login ? 24 : 16)
+                        .foregroundStyle(authType == .login ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, authType == .login ? 30 : 20)
                         .background(
-                            RoundedRectangle(cornerRadius: 16).fill(authType == .login ? Color(uiColor: .systemGray5) : Color(uiColor: .systemGray6))
+                            ZStack {
+                                if authType == .login {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.black.opacity(0.3), lineWidth: 0.5)
+                                        .zIndex(1)
+                                }
+                                
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(authType == .login ?
+                                          Color(uiColor: UIColor.systemGray5):
+                                            Color(UIColor.systemGray6))
+                                    .zIndex(0)
+                            }
                         )
                 }
                 Button {
                     withAnimation { authType = .register }
                 } label: {
                     Text("Register")
-                        .fontWeight(authType == .register ? .semibold : .regular)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, authType == .register ? 24 : 16)
+                        .fontWeight(authType == .register ?  .semibold : .regular)
+                        .foregroundStyle(authType == .register ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, authType == .register ? 30 : 20)
                         .background(
-                            RoundedRectangle(cornerRadius: 16).fill(authType == .register ? Color(uiColor: .systemGray5) : Color(uiColor: .systemGray6))
+                            ZStack {
+                                if authType == .register {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.black.opacity(0.3), lineWidth: 0.5)
+                                        .zIndex(1)
+                                }
+                                
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(authType == .register ?
+                                          Color(uiColor: UIColor.systemGray5):
+                                            Color(UIColor.systemGray6))
+                                    .zIndex(0)
+                            }
                         )
                 }
             }
-            .padding(.horizontal)
-
+            .background(
+                Color(uiColor: .systemGray6)
+            )
+            .cornerRadius(20)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 10)
+            .frame(maxWidth: .infinity)
+            
+            
             VStack(spacing: 14) {
                 TextField(text: $adminVM.username) { Text("Username") }
                     .textFieldStyle(.roundedBorder)
