@@ -18,20 +18,25 @@ struct SchoolManagementApp: App {
     }
 }
 
+/// Root of the app that now lets the user choose between User and Admin authentication flows.
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
-    @StateObject private var viewModel: AuthViewModel
+
+    // Separate view models for user and admin flows
+    @StateObject private var userViewModel: AuthViewModel
+    @StateObject private var adminViewModel = AdminAuthViewModel()
 
     init() {
         let context = PersistenceController.shared.container.viewContext
-        _viewModel = StateObject(wrappedValue: AuthViewModel(context: context))
+        _userViewModel = StateObject(wrappedValue: AuthViewModel(context: context))
     }
 
     var body: some View {
         NavigationStack {
-            AuthenticationView()
+            RoleSelectionView()
         }
-        .environmentObject(viewModel)
+        // Provide both environment objects so the destination views can pick what they need
+        .environmentObject(userViewModel)
+        .environmentObject(adminViewModel)
     }
 }
-
