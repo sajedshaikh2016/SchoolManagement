@@ -39,5 +39,19 @@ struct AuthenticationRoot: View {
         // Provide both environment objects so the destination views can pick what they need
         .environmentObject(userViewModel)
         .environmentObject(adminViewModel)
+        .onChange(of: userViewModel.isAuthenticated) { oldValue, newValue in
+            if newValue {
+                // Clear user auth fields when navigating away after successful auth
+                userViewModel.email = ""
+                userViewModel.password = ""
+            }
+        }
+        .onChange(of: adminViewModel.isAuthenticated) { oldValue, newValue in
+            if newValue {
+                // Clear admin auth fields when navigating away after successful auth
+                adminViewModel.username = ""
+                adminViewModel.password = ""
+            }
+        }
     }
 }
