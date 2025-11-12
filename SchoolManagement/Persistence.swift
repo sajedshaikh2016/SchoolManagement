@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-// A lightweight Core Data stack with a programmatic model containing a single `User` entity.
+// A lightweight Core Data stack with a programmatic model containing `User` and `Admin` entities.
 // This avoids the need for an .xcdatamodeld file and keeps the sample self-contained.
 struct PersistenceController {
     static let shared = PersistenceController()
@@ -34,7 +34,24 @@ struct PersistenceController {
         passwordAttr.isOptional = false
 
         userEntity.properties = [emailAttr, passwordAttr]
-        model.entities = [userEntity]
+
+        let adminEntity = NSEntityDescription()
+        adminEntity.name = "Admin"
+        adminEntity.managedObjectClassName = NSStringFromClass(Admin.self)
+
+        let adminUsernameAttr = NSAttributeDescription()
+        adminUsernameAttr.name = "username"
+        adminUsernameAttr.attributeType = .stringAttributeType
+        adminUsernameAttr.isOptional = false
+
+        let adminPasswordAttr = NSAttributeDescription()
+        adminPasswordAttr.name = "password"
+        adminPasswordAttr.attributeType = .stringAttributeType
+        adminPasswordAttr.isOptional = false
+
+        adminEntity.properties = [adminUsernameAttr, adminPasswordAttr]
+
+        model.entities = [userEntity, adminEntity]
 
         container = NSPersistentContainer(name: "SchoolManagement", managedObjectModel: model)
 

@@ -24,11 +24,12 @@ struct AuthenticationRoot: View {
 
     // Separate view models for user and admin flows
     @StateObject private var userViewModel: AuthViewModel
-    @StateObject private var adminViewModel = AdminAuthViewModel()
+    @StateObject private var adminViewModel: AdminAuthViewModel
 
     init() {
         let context = PersistenceController.shared.container.viewContext
         _userViewModel = StateObject(wrappedValue: AuthViewModel(context: context))
+        _adminViewModel = StateObject(wrappedValue: AdminAuthViewModel(context: context))
     }
 
     var body: some View {
