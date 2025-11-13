@@ -54,14 +54,14 @@ struct UserAuthenticationView: View {
                     Text("Email")
                 }
                 .focused($isEmailFocused)
-                .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isEmailFocused))
+                .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isEmailFocused))
                 
                 ZStack {
                     TextField(text: $viewModel.password) {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
-                    .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                    .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing, content: {
                         Button {
                             withAnimation {
@@ -80,7 +80,7 @@ struct UserAuthenticationView: View {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
-                    .textFieldStyle(AuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                    .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing) {
                         Button {
                             withAnimation {
@@ -197,7 +197,7 @@ struct AuthenticationButtonType: ButtonStyle {
     }
 }
 
-struct AuthenticationTextFieldStyle: TextFieldStyle {
+struct UserAuthenticationTextFieldStyle: TextFieldStyle {
     @Environment(\.colorScheme) private var colorScheme
     
     let isFocused: FocusState<Bool>.Binding

@@ -94,31 +94,33 @@ struct AdminAuthenticationView: View {
             .frame(maxWidth: .infinity)
             
             
-            VStack(spacing: 14) {
+            VStack(spacing: 15) {
                 TextField(text: $adminVM.username) { Text("Username") }
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))
                     .focused($isUserFocused)
 
                 ZStack {
                     TextField(text: $adminVM.password) { Text("Password") }
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                         .focused($isPasswordFocused)
                         .opacity(showPassword ? 1 : 0)
                         .overlay(alignment: .trailing) {
                             Button { withAnimation { showPassword.toggle() } } label: {
                                 Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                    .padding(8)
+                                    .padding()
+                                    .foregroundStyle(Color(uiColor: .darkGray))
                             }
                         }
 
                     SecureField(text: $adminVM.password) { Text("Password") }
-                        .textFieldStyle(.roundedBorder)
+                        .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                         .focused($isPasswordFocused)
                         .opacity(showPassword ? 0 : 1)
                         .overlay(alignment: .trailing) {
                             Button { withAnimation { showPassword.toggle() } } label: {
                                 Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                    .padding(8)
+                                    .padding()
+                                    .foregroundStyle(Color(uiColor: .darkGray))
                             }
                         }
                 }
@@ -149,6 +151,31 @@ struct AdminAuthenticationView: View {
             Text(adminVM.errorMessage ?? "")
         }
     }
+}
+
+struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
+    @Environment(\.colorScheme) private var colorScheme
+    
+    let isFocused: FocusState<Bool>.Binding
+    
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .font(.system(size: 20, weight: .regular, design: .rounded))
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(isFocused.wrappedValue ? Color.black : Color.gray.opacity(0.5), lineWidth: 1)
+                        .zIndex(1)
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(colorScheme == .light ? Color(.lightGray) : Color(UIColor.darkGray))
+                        .zIndex(0)
+                }
+            )
+            .animation(.easeInOut(duration: 0.2), value: isFocused.wrappedValue )
+    }
+    
 }
 
 #Preview {
