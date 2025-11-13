@@ -14,7 +14,6 @@ struct SettingsView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
-                .foregroundStyle(.blue)
 
             Text("Settings")
                 .font(.system(size: 28, weight: .bold, design: .rounded))

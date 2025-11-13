@@ -14,7 +14,6 @@ struct ProfileView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
-                .foregroundStyle(.blue)
 
             Text("Profile")
                 .font(.system(size: 28, weight: .bold, design: .rounded))

@@ -14,8 +14,7 @@ struct RoleSelectionView: View {
                 Image(systemName: "person.2.circle.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 80)
-                    .foregroundStyle(.blue)
+                    .frame(width: 70)
                 Text("Select Role")
                     .font(.system(size: 34, weight: .bold, design: .rounded))
             }
@@ -41,6 +40,7 @@ struct RoleSelectionView: View {
                             .foregroundStyle(.secondary)
                     }
                     .padding()
+                    .foregroundStyle(Color(uiColor: .black))
                     .background(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .fill(Color(uiColor: .systemGray6))
@@ -66,6 +66,7 @@ struct RoleSelectionView: View {
                             .foregroundStyle(.secondary)
                     }
                     .padding()
+                    .foregroundStyle(Color(uiColor: .black))
                     .background(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .fill(Color(uiColor: .systemGray6))
