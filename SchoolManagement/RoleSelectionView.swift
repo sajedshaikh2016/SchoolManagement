@@ -24,7 +24,7 @@ struct RoleSelectionView: View {
             VStack(spacing: 16) {
                 NavigationLink {
                     // Existing user authentication flow
-                    AuthenticationView()
+                    UserAuthenticationView()
                 } label: {
                     HStack(spacing: 16) {
                         Image(systemName: "person.crop.circle")

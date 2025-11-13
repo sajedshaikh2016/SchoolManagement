@@ -1,5 +1,5 @@
 //
-//  AuthenticationView.swift
+//  UserAuthenticationView.swift
 //  SchoolManagement
 //
 //  Created by Sajed Shaikh on 05/11/25.
@@ -13,9 +13,9 @@ enum AuthenticationType {
     case register
 }
 
-struct AuthenticationView: View {
+struct UserAuthenticationView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var viewModel: AuthViewModel
+    @EnvironmentObject private var viewModel: UserAuthViewModel
     
     @FocusState private var isEmailFocused
     @FocusState private var isPasswordFocused
@@ -40,7 +40,7 @@ struct AuthenticationView: View {
     }
 
     private func isValidEmail(_ email: String) -> Bool {
-        // Simple email format check; mirrors AuthViewModel's validation
+        // Simple email format check; mirrors UserAuthViewModel's validation
         email.contains("@") && email.contains(".")
     }
     
@@ -395,6 +395,6 @@ struct BottomView: View {
 }
 
 #Preview {
-    AuthenticationView()
-        .environmentObject(AuthViewModel(context: PersistenceController.shared.container.viewContext))
+    UserAuthenticationView()
+        .environmentObject(UserAuthViewModel(context: PersistenceController.shared.container.viewContext))
 }
