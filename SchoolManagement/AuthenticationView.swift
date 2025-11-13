@@ -46,7 +46,7 @@ struct AuthenticationView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            TopView()
+            TopView(authenticationType: $authenticationType)
             SegmentedView(authenticationType: $authenticationType)
             
             VStack(spacing: 15) {
@@ -223,6 +223,7 @@ struct AuthenticationTextFieldStyle: TextFieldStyle {
 }
 
 struct TopView: View {
+    @Binding var authenticationType: AuthenticationType
     var body: some View {
         VStack(alignment: .center) {
             Image(systemName: "person.circle.fill")
@@ -230,8 +231,8 @@ struct TopView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 75)
             
-            Text("Authentication Flow")
-                .font(.system(size: 35, weight: .bold, design: .rounded))
+            Text(authenticationType == .login ? "User Sign In" : "User Register")
+                .font(.system(size: 32, weight: .bold, design: .rounded))
                 
         }
     }
