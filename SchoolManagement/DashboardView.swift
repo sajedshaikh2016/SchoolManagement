@@ -32,6 +32,7 @@ struct DashboardView: View {
                         Text("Settings")
                     }
             }
+            .tint(.yellow)
         }
         .navigationTitle("Dashboard")
         .navigationBarBackButtonHidden(true)
