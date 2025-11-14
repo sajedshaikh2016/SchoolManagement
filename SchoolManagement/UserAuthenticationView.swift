@@ -151,7 +151,7 @@ struct UserAuthenticationView: View {
             }
         }
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            DashboardView()
+            UserDashboardView()
         }
     }
 }

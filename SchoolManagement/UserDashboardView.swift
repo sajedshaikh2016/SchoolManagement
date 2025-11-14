@@ -1,5 +1,5 @@
 //
-//  DashboardView.swift
+//  UserDashboardView.swift
 //  SchoolManagement
 //
 //  Created by Assistant on 05/11/25.
@@ -8,22 +8,16 @@
 import SwiftUI
 internal import CoreData
 
-struct DashboardView: View {
-    @EnvironmentObject private var viewModel: UserAuthViewModel
+struct UserDashboardView: View {
+    @EnvironmentObject private var userVM: UserAuthViewModel
 
     var body: some View {
-        let userVM = viewModel
         VStack {
             TabView {
                 HomeView()
                     .tabItem {
                         Image(systemName: "house")
                         Text("Home")
-                    }
-                ProfileView()
-                    .tabItem {
-                        Image(systemName: "person.crop.circle.fill")
-                        Text("Profile")
                     }
                 SettingsView()
                     .tabItem {
@@ -61,7 +55,7 @@ struct DashboardView: View {
 #Preview {
     let preview = PersistenceController.preview
     return NavigationStack {
-        DashboardView()
+        UserDashboardView()
             .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
     }
 }
