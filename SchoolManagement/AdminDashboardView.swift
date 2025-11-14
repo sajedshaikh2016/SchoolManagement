@@ -13,23 +13,43 @@ struct AdminDashboardView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: "shield.checkerboard")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.green)
-
-            Text("Admin Console")
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-
-            Text("Welcome, Admin!")
-                .foregroundStyle(.secondary)
-
-            Button("Logout") { adminVM.logout() }
-                .buttonStyle(.borderedProminent)
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
+            }
+            .tint(.yellow)
         }
         .padding()
         .navigationTitle("Admin Dashboard")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    NavigationLink {
+                        ProfileView()
+                    } label: {
+                        Label("Profile", systemImage: "person.crop.circle")
+                    }
+
+                    Button(role: .destructive) {
+                        adminVM.logout()
+                    } label: {
+                        Label("Logout", systemImage: "rectangle.portrait.and.arrow.right")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .imageScale(.large)
+                }
+            }
+        }
     }
 }
 

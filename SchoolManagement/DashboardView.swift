@@ -12,8 +12,7 @@ struct DashboardView: View {
     @EnvironmentObject private var viewModel: UserAuthViewModel
 
     var body: some View {
-        let vm = viewModel
-        
+        let userVM = viewModel
         VStack {
             TabView {
                 HomeView()
@@ -36,8 +35,6 @@ struct DashboardView: View {
         }
         .navigationTitle("Dashboard")
         .navigationBarBackButtonHidden(true)
-        
-        
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
@@ -48,7 +45,7 @@ struct DashboardView: View {
                     }
 
                     Button(role: .destructive) {
-                        vm.logout()
+                        userVM.logout()
                     } label: {
                         Label("Logout", systemImage: "rectangle.portrait.and.arrow.right")
                     }
@@ -58,7 +55,6 @@ struct DashboardView: View {
                 }
             }
         }
-        
     }
 }
 
