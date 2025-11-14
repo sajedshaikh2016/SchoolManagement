@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import CoreData
 
 struct AdminDashboardView: View {
     @EnvironmentObject private var adminVM: AdminAuthViewModel
@@ -33,8 +34,9 @@ struct AdminDashboardView: View {
 }
 
 #Preview {
-    NavigationStack {
+    let preview = PersistenceController.preview
+    return NavigationStack {
         AdminDashboardView()
-            .environmentObject(AdminAuthViewModel())
+            .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
     }
 }

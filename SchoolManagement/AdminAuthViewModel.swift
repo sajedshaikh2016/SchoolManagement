@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import CoreData
+internal import CoreData
 
 @MainActor
 final class AdminAuthViewModel: ObservableObject {

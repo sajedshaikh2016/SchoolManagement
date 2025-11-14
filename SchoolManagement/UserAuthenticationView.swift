@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+internal import CoreData
 
 enum AuthenticationType {
     case login
@@ -395,6 +395,9 @@ struct BottomView: View {
 }
 
 #Preview {
-    UserAuthenticationView()
-        .environmentObject(UserAuthViewModel(context: PersistenceController.shared.container.viewContext))
+    let preview = PersistenceController.preview
+    return NavigationStack {
+        UserAuthenticationView()
+            .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
+    }
 }

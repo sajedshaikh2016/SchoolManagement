@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+internal import CoreData
 
 struct DashboardView: View {
     @EnvironmentObject private var viewModel: UserAuthViewModel
@@ -62,8 +62,9 @@ struct DashboardView: View {
 }
 
 #Preview {
-    NavigationStack {
+    let preview = PersistenceController.preview
+    return NavigationStack {
         DashboardView()
-            .environmentObject(UserAuthViewModel(context: PersistenceController.shared.container.viewContext))
+            .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
     }
 }

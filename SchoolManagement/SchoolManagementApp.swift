@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+internal import CoreData
 
 @main
 struct SchoolManagementApp: App {
@@ -14,6 +14,8 @@ struct SchoolManagementApp: App {
         WindowGroup {
             AuthenticationRoot()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .environmentObject(UserAuthViewModel(context: PersistenceController.shared.container.viewContext))
+                .environmentObject(AdminAuthViewModel(context: PersistenceController.shared.container.viewContext))
         }
     }
 }
@@ -22,23 +24,14 @@ struct SchoolManagementApp: App {
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
 
-    // Separate view models for user and admin flows
-    @StateObject private var userViewModel: UserAuthViewModel
-    @StateObject private var adminViewModel: AdminAuthViewModel
-
-    init() {
-        let context = PersistenceController.shared.container.viewContext
-        _userViewModel = StateObject(wrappedValue: UserAuthViewModel(context: context))
-        _adminViewModel = StateObject(wrappedValue: AdminAuthViewModel(context: context))
-    }
+    @EnvironmentObject private var userViewModel: UserAuthViewModel
+    @EnvironmentObject private var adminViewModel: AdminAuthViewModel
 
     var body: some View {
         NavigationStack {
             RoleSelectionView()
         }
         // Provide both environment objects so the destination views can pick what they need
-        .environmentObject(userViewModel)
-        .environmentObject(adminViewModel)
         .onChange(of: userViewModel.isAuthenticated) { oldValue, newValue in
             if newValue {
                 // Clear user auth fields when navigating away after successful auth
@@ -54,4 +47,12 @@ struct AuthenticationRoot: View {
             }
         }
     }
+}
+
+#Preview {
+    let preview = PersistenceController.preview
+    return AuthenticationRoot()
+        .environment(\.managedObjectContext, preview.container.viewContext)
+        .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
+        .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
 }

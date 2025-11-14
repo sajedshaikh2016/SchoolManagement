@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import CoreData
+internal import CoreData
 
 @MainActor
 final class UserAuthViewModel: ObservableObject {
@@ -18,7 +18,7 @@ final class UserAuthViewModel: ObservableObject {
 
     private let context: NSManagedObjectContext
 
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.context = context
     }
 

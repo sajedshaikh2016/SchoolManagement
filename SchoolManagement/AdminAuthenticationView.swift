@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+internal import CoreData
 
 // Uses AuthenticationType from AuthenticationView. If unavailable, uncomment below.
 // enum AuthenticationType { case login, register }
@@ -179,8 +180,9 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
 }
 
 #Preview {
-    NavigationStack {
+    let preview = PersistenceController.preview
+    return NavigationStack {
         AdminAuthenticationView()
-            .environmentObject(AdminAuthViewModel())
+            .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
     }
 }
