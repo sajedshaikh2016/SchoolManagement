@@ -12,7 +12,7 @@ struct AdminDashboardView: View {
     @EnvironmentObject private var adminVM: AdminAuthViewModel
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack {
             TabView {
                 HomeView()
                     .tabItem {
@@ -27,7 +27,6 @@ struct AdminDashboardView: View {
             }
             .tint(.yellow)
         }
-        .padding()
         .navigationTitle("Admin Dashboard")
         .navigationBarBackButtonHidden(true)
         .toolbar {

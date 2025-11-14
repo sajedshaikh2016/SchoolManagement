@@ -38,6 +38,12 @@ struct UserDashboardView: View {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
 
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    
                     Button(role: .destructive) {
                         userVM.logout()
                     } label: {
