@@ -1,5 +1,5 @@
 //
-//  Settings.swift
+//  SettingsView.swift
 //  SchoolManagement
 //
 //  Created by Sajed Shaikh on 05/11/25.
