@@ -24,7 +24,7 @@ struct SchoolManagementApp: App {
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
 
-    @EnvironmentObject private var userViewModel: StudentAuthViewModel
+    @EnvironmentObject private var studentViewModel: StudentAuthViewModel
     @EnvironmentObject private var adminViewModel: AdminAuthViewModel
 
     var body: some View {
@@ -32,11 +32,11 @@ struct AuthenticationRoot: View {
             RoleSelectionView()
         }
         // Provide both environment objects so the destination views can pick what they need
-        .onChange(of: userViewModel.isAuthenticated) { oldValue, newValue in
+        .onChange(of: studentViewModel.isAuthenticated) { oldValue, newValue in
             if newValue {
-                // Clear user auth fields when navigating away after successful auth
-                userViewModel.email = ""
-                userViewModel.password = ""
+                // Clear student auth fields when navigating away after successful auth
+                studentViewModel.email = ""
+                studentViewModel.password = ""
             }
         }
         .onChange(of: adminViewModel.isAuthenticated) { oldValue, newValue in
