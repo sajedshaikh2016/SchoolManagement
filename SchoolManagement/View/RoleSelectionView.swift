@@ -76,7 +76,7 @@ struct RoleSelectionView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Welcome")
+        .navigationTitle("welcome_title")
     }
 }
 
