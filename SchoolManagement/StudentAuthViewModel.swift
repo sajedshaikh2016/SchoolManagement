@@ -1,5 +1,5 @@
 //
-//  UserAuthViewModel.swift
+//  StudentAuthViewModel.swift
 //  SchoolManagement
 //
 //  Created by Assistant on 05/11/25.
@@ -10,7 +10,7 @@ import Combine
 internal import CoreData
 
 @MainActor
-final class UserAuthViewModel: ObservableObject {
+final class StudentAuthViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var errorMessage: String? = nil

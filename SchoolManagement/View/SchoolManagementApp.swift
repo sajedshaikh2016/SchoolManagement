@@ -14,7 +14,7 @@ struct SchoolManagementApp: App {
         WindowGroup {
             AuthenticationRoot()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-                .environmentObject(UserAuthViewModel(context: PersistenceController.shared.container.viewContext))
+                .environmentObject(StudentAuthViewModel(context: PersistenceController.shared.container.viewContext))
                 .environmentObject(AdminAuthViewModel(context: PersistenceController.shared.container.viewContext))
         }
     }
@@ -24,7 +24,7 @@ struct SchoolManagementApp: App {
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
 
-    @EnvironmentObject private var userViewModel: UserAuthViewModel
+    @EnvironmentObject private var userViewModel: StudentAuthViewModel
     @EnvironmentObject private var adminViewModel: AdminAuthViewModel
 
     var body: some View {
@@ -53,6 +53,6 @@ struct AuthenticationRoot: View {
     let preview = PersistenceController.preview
     return AuthenticationRoot()
         .environment(\.managedObjectContext, preview.container.viewContext)
-        .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
+        .environmentObject(StudentAuthViewModel(context: preview.container.viewContext))
         .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
 }

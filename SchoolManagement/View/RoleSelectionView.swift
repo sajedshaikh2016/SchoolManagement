@@ -22,7 +22,7 @@ struct RoleSelectionView: View {
 
             VStack(spacing: 16) {
                 NavigationLink {
-                    UserAuthenticationView()
+                    StudentAuthenticationView()
                 } label: {
                     HStack(spacing: 16) {
                         Image(systemName: "person.crop.circle")

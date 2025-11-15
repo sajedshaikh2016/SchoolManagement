@@ -1,5 +1,5 @@
 //
-//  UserAuthenticationView.swift
+//  StudentAuthenticationView.swift
 //  SchoolManagement
 //
 //  Created by Sajed Shaikh on 05/11/25.
@@ -13,9 +13,9 @@ enum AuthenticationType {
     case register
 }
 
-struct UserAuthenticationView: View {
+struct StudentAuthenticationView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var viewModel: UserAuthViewModel
+    @EnvironmentObject private var viewModel: StudentAuthViewModel
     
     @FocusState private var isEmailFocused
     @FocusState private var isPasswordFocused
@@ -54,14 +54,14 @@ struct UserAuthenticationView: View {
                     Text("Email")
                 }
                 .focused($isEmailFocused)
-                .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isEmailFocused))
+                .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isEmailFocused))
                 
                 ZStack {
                     TextField(text: $viewModel.password) {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
-                    .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                    .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing, content: {
                         Button {
                             withAnimation {
@@ -80,7 +80,7 @@ struct UserAuthenticationView: View {
                         Text("Password")
                     }
                     .focused($isPasswordFocused)
-                    .textFieldStyle(UserAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                    .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing) {
                         Button {
                             withAnimation {
@@ -151,7 +151,7 @@ struct UserAuthenticationView: View {
             }
         }
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            UserDashboardView()
+            StudentDashboardView()
         }
     }
 }
@@ -197,7 +197,7 @@ struct AuthenticationButtonType: ButtonStyle {
     }
 }
 
-struct UserAuthenticationTextFieldStyle: TextFieldStyle {
+struct StudentAuthenticationTextFieldStyle: TextFieldStyle {
     @Environment(\.colorScheme) private var colorScheme
     
     let isFocused: FocusState<Bool>.Binding
@@ -397,7 +397,7 @@ struct BottomView: View {
 #Preview {
     let preview = PersistenceController.preview
     return NavigationStack {
-        UserAuthenticationView()
-            .environmentObject(UserAuthViewModel(context: preview.container.viewContext))
+        StudentAuthenticationView()
+            .environmentObject(StudentAuthViewModel(context: preview.container.viewContext))
     }
 }
