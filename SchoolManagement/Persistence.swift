@@ -25,7 +25,6 @@ struct PersistenceController {
             description.type = NSInMemoryStoreType
             container.persistentStoreDescriptions = [description]
         } else if let description = container.persistentStoreDescriptions.first {
-            // Enable automatic lightweight migration from the previous programmatic model
             description.shouldMigrateStoreAutomatically = true
             description.shouldInferMappingModelAutomatically = true
         } else {

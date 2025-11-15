@@ -8,9 +8,6 @@
 import SwiftUI
 internal import CoreData
 
-// Uses AuthenticationType from AuthenticationView. If unavailable, uncomment below.
-// enum AuthenticationType { case login, register }
-
 struct AdminAuthenticationView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var adminVM: AdminAuthViewModel
@@ -156,7 +153,6 @@ struct AdminAuthenticationView: View {
 
 struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
     @Environment(\.colorScheme) private var colorScheme
-    
     let isFocused: FocusState<Bool>.Binding
     
     func _body(configuration: TextField<Self._Label>) -> some View {
@@ -176,7 +172,6 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
             )
             .animation(.easeInOut(duration: 0.2), value: isFocused.wrappedValue )
     }
-    
 }
 
 #Preview {

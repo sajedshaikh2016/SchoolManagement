@@ -22,7 +22,6 @@ struct RoleSelectionView: View {
 
             VStack(spacing: 16) {
                 NavigationLink {
-                    // Existing user authentication flow
                     UserAuthenticationView()
                 } label: {
                     HStack(spacing: 16) {
@@ -48,7 +47,6 @@ struct RoleSelectionView: View {
                 }
 
                 NavigationLink {
-                    // New admin authentication flow
                     AdminAuthenticationView()
                 } label: {
                     HStack(spacing: 16) {
