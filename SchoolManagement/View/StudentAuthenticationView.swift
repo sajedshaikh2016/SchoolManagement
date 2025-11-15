@@ -40,7 +40,7 @@ struct StudentAuthenticationView: View {
     }
 
     private func isValidEmail(_ email: String) -> Bool {
-        // Simple email format check; mirrors UserAuthViewModel's validation
+        // Simple email format check; mirrors StudentAuthViewModel's validation
         email.contains("@") && email.contains(".")
     }
     
@@ -231,7 +231,7 @@ struct TopView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 75)
             
-            Text(authenticationType == .login ? "User Sign In" : "User Register")
+            Text(authenticationType == .login ? "Student Sign In" : "Student Register")
                 .font(.system(size: 32, weight: .bold, design: .rounded))
                 
         }

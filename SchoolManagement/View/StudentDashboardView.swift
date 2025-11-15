@@ -9,7 +9,7 @@ import SwiftUI
 internal import CoreData
 
 struct StudentDashboardView: View {
-    @EnvironmentObject private var userVM: StudentAuthViewModel
+    @EnvironmentObject private var studentVM: StudentAuthViewModel
 
     var body: some View {
         VStack {
@@ -45,7 +45,7 @@ struct StudentDashboardView: View {
                     }
                     
                     Button(role: .destructive) {
-                        userVM.logout()
+                        studentVM.logout()
                     } label: {
                         Label("Logout", systemImage: "rectangle.portrait.and.arrow.right")
                     }

@@ -28,9 +28,9 @@ struct RoleSelectionView: View {
                         Image(systemName: "person.crop.circle")
                             .imageScale(.large)
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("User")
+                            Text("Student")
                                 .font(.system(size: 22, weight: .semibold, design: .rounded))
-                            Text("Login or register as a user")
+                            Text("Login or register as a student")
                                 .foregroundStyle(.secondary)
                                 .font(.system(size: 14, weight: .regular, design: .rounded))
                         }

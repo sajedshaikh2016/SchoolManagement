@@ -39,8 +39,8 @@ final class StudentAuthViewModel: ObservableObject {
     func register() async {
         guard validateInputs() else { return }
 
-        // Check if user already exists
-        let fetch: NSFetchRequest<User> = NSFetchRequest(entityName: "User")
+        // Check if student already exists
+        let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
         fetch.predicate = NSPredicate(format: "email ==[c] %@", email)
         fetch.fetchLimit = 1
 
@@ -51,11 +51,11 @@ final class StudentAuthViewModel: ObservableObject {
                 return
             }
 
-            // Create new user
-            guard let entity = NSEntityDescription.entity(forEntityName: "User", in: context) else { return }
-            let user = User(entity: entity, insertInto: context)
-            user.email = email.trimmingCharacters(in: .whitespacesAndNewlines)
-            user.password = password // In production, NEVER store plain passwords.
+            // Create new student
+            guard let entity = NSEntityDescription.entity(forEntityName: "Student", in: context) else { return }
+            let student = Student(entity: entity, insertInto: context)
+            student.email = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            student.password = password // In production, NEVER store plain passwords.
 
             try context.save()
             // Auto-login after registration
@@ -68,7 +68,7 @@ final class StudentAuthViewModel: ObservableObject {
     func login() async {
         guard validateInputs() else { return }
 
-        let fetch: NSFetchRequest<User> = NSFetchRequest(entityName: "User")
+        let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
         fetch.predicate = NSPredicate(format: "email ==[c] %@ AND password == %@", email, password)
         fetch.fetchLimit = 1
 

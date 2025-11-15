@@ -20,7 +20,7 @@ struct SchoolManagementApp: App {
     }
 }
 
-/// Root of the app that now lets the user choose between User and Admin authentication flows.
+/// Root of the app that now lets the user choose between Student and Admin authentication flows.
 struct AuthenticationRoot: View {
     @Environment(\.managedObjectContext) private var context
 
