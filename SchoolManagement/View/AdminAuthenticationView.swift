@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import CoreData
 
 struct AdminAuthenticationView: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -17,8 +17,7 @@ struct AdminAuthenticationView: View {
     @State private var authType: AuthenticationType = .login
 
     private var isFormValid: Bool {
-        !adminVM.username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        !adminVM.password.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        adminVM.isFormValid
     }
 
     var body: some View {
@@ -94,11 +93,16 @@ struct AdminAuthenticationView: View {
             
             VStack(spacing: 15) {
                 TextField(text: $adminVM.username) { Text("Username") }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
                     .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))
                     .focused($isUserFocused)
 
                 ZStack {
                     TextField(text: $adminVM.password) { Text("Password") }
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                        .textContentType(.password)
                         .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                         .focused($isPasswordFocused)
                         .opacity(showPassword ? 1 : 0)
@@ -111,6 +115,9 @@ struct AdminAuthenticationView: View {
                         }
 
                     SecureField(text: $adminVM.password) { Text("Password") }
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled(true)
+                        .textContentType(.password)
                         .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                         .focused($isPasswordFocused)
                         .opacity(showPassword ? 0 : 1)
@@ -126,9 +133,9 @@ struct AdminAuthenticationView: View {
 
             Button {
                 if authType == .login {
-                    Task { await adminVM.login() }
+                    adminVM.login()
                 } else {
-                    Task { await adminVM.register() }
+                    adminVM.register()
                 }
             } label: {
                 Text(authType == .login ? "Sign In" : "Register")
@@ -140,9 +147,6 @@ struct AdminAuthenticationView: View {
             Spacer()
         }
         .padding()
-        .navigationDestination(isPresented: $adminVM.isAuthenticated) {
-            AdminDashboardView()
-        }
         .alert("Error", isPresented: Binding(get: { adminVM.errorMessage != nil }, set: { if !$0 { adminVM.errorMessage = nil } })) {
             Button("OK", role: .cancel) { adminVM.errorMessage = nil }
         } message: {
@@ -181,3 +185,4 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
             .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
     }
 }
+

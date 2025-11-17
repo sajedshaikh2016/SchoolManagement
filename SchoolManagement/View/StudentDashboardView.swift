@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import CoreData
 
 struct StudentDashboardView: View {
     @EnvironmentObject private var studentVM: StudentAuthViewModel

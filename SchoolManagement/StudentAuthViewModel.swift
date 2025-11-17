@@ -7,91 +7,198 @@
 
 import Foundation
 import Combine
-internal import CoreData
+import CoreData
 
 @MainActor
 final class StudentAuthViewModel: ObservableObject {
+    // Inputs
     @Published var email: String = ""
     @Published var password: String = ""
+
+    // Outputs
     @Published var errorMessage: String? = nil
     @Published var isAuthenticated: Bool = false
+    @Published var isFormValid: Bool = false
 
     private let context: NSManagedObjectContext
+    private var cancellables = Set<AnyCancellable>()
 
     init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.context = context
+
+        Publishers.CombineLatest($email, $password)
+            .map { email, pass in
+                let e = email.trimmingCharacters(in: .whitespacesAndNewlines)
+                let p = pass.trimmingCharacters(in: .whitespacesAndNewlines)
+                return e.contains("@") && e.contains(".") && !p.isEmpty
+            }
+            .removeDuplicates()
+            .assign(to: &$isFormValid)
     }
 
-    // Basic email/password validation
-    private func validateInputs(requirePassword: Bool = true) -> Bool {
+    func register() {
         errorMessage = nil
-        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedEmail.isEmpty else { errorMessage = "Please enter email"; return false }
-        if requirePassword {
-            guard !trimmedPassword.isEmpty else { errorMessage = "Please enter password"; return false }
-        }
-        // very simple email format check
-        guard trimmedEmail.contains("@"), trimmedEmail.contains(".") else { errorMessage = "Please enter a valid email"; return false }
-        return true
+
+        registerPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                if case let .failure(error) = completion {
+                    self.isAuthenticated = false
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Failed to register. Please try again."
+                }
+            } receiveValue: { [weak self] success in
+                guard let self = self else { return }
+                self.isAuthenticated = success
+                if success { self.errorMessage = nil }
+            }
+            .store(in: &cancellables)
     }
 
-    func register() async {
-        guard validateInputs() else { return }
+    func login() {
+        errorMessage = nil
 
-        // Check if student already exists
-        let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
-        fetch.predicate = NSPredicate(format: "email ==[c] %@", email)
-        fetch.fetchLimit = 1
-
-        do {
-            let existing = try context.fetch(fetch)
-            guard existing.isEmpty else {
-                errorMessage = "An account with this email already exists"
-                return
+        loginPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                if case let .failure(error) = completion {
+                    self.isAuthenticated = false
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Login failed. Please try again."
+                }
+            } receiveValue: { [weak self] success in
+                guard let self = self else { return }
+                self.isAuthenticated = success
+                if success { self.errorMessage = nil }
             }
-
-            // Create new student
-            guard let entity = NSEntityDescription.entity(forEntityName: "Student", in: context) else { return }
-            let student = Student(entity: entity, insertInto: context)
-            student.email = email.trimmingCharacters(in: .whitespacesAndNewlines)
-            student.password = password // In production, NEVER store plain passwords.
-
-            try context.save()
-            // Auto-login after registration
-            isAuthenticated = true
-        } catch {
-            errorMessage = "Failed to register. Please try again."
-        }
-    }
-
-    func login() async {
-        guard validateInputs() else { return }
-
-        let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
-        fetch.predicate = NSPredicate(format: "email ==[c] %@ AND password == %@", email, password)
-        fetch.fetchLimit = 1
-
-        do {
-            let result = try context.fetch(fetch)
-            if let _ = result.first {
-                isAuthenticated = true
-                errorMessage = nil
-            } else {
-                isAuthenticated = false
-                errorMessage = "Incorrect email or password"
-            }
-        } catch {
-            isAuthenticated = false
-            errorMessage = "Login failed. Please try again."
-        }
+            .store(in: &cancellables)
     }
 
     func logout() {
-        // Reset authentication state and clear sensitive fields
         isAuthenticated = false
         email = ""
         password = ""
         errorMessage = nil
     }
 }
+
+private extension StudentAuthViewModel {
+    enum AuthError: LocalizedError, Equatable {
+        case invalidInput(String)
+        case duplicateEmail
+        case invalidCredentials
+        case underlying(Error)
+
+        var errorDescription: String? {
+            switch self {
+            case .invalidInput(let message):
+                return message
+            case .duplicateEmail:
+                return "An account with this email already exists"
+            case .invalidCredentials:
+                return "Incorrect email or password"
+            case .underlying:
+                return "Something went wrong. Please try again."
+            }
+        }
+        
+        static func == (lhs: AuthError, rhs: AuthError) -> Bool {
+            switch (lhs, rhs) {
+            case (.invalidInput(let lMsg), .invalidInput(let rMsg)):
+                return lMsg == rMsg
+            case (.duplicateEmail, .duplicateEmail):
+                return true
+            case (.invalidCredentials, .invalidCredentials):
+                return true
+            case (.underlying(let lErr), .underlying(let rErr)):
+                return (lErr as NSError).domain == (rErr as NSError).domain
+                    && (lErr as NSError).code == (rErr as NSError).code
+                    && lErr.localizedDescription == rErr.localizedDescription
+            default:
+                return false
+            }
+        }
+    }
+
+    func validateInputs(requirePassword: Bool = true) -> AuthError? {
+        let e = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let p = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !e.isEmpty else { return .invalidInput("Please enter email") }
+        if requirePassword {
+            guard !p.isEmpty else { return .invalidInput("Please enter password") }
+        }
+        guard e.contains("@"), e.contains(".") else { return .invalidInput("Please enter a valid email") }
+        return nil
+    }
+
+    func registerPublisher() -> AnyPublisher<Bool, Error> {
+        Deferred { [weak self] () -> Future<Bool, Error> in
+            guard let self = self else { return Future { $0(.failure(AuthError.underlying(NSError()))) } }
+            return Future { promise in
+                if let error = self.validateInputs() {
+                    promise(.failure(error))
+                    return
+                }
+
+                self.context.perform {
+                    let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
+                    fetch.predicate = NSPredicate(format: "email ==[c] %@", self.email)
+                    fetch.fetchLimit = 1
+
+                    do {
+                        let existing = try self.context.fetch(fetch)
+                        guard existing.isEmpty else {
+                            promise(.failure(AuthError.duplicateEmail))
+                            return
+                        }
+
+                        guard let entity = NSEntityDescription.entity(forEntityName: "Student", in: self.context) else {
+                            promise(.failure(AuthError.underlying(NSError(domain: "StudentEntity", code: -1))))
+                            return
+                        }
+                        let student = Student(entity: entity, insertInto: self.context)
+                        student.email = self.email.trimmingCharacters(in: .whitespacesAndNewlines)
+                        student.password = self.password // Do not store plaintext passwords in production.
+
+                        try self.context.save()
+                        promise(.success(true))
+                    } catch {
+                        promise(.failure(AuthError.underlying(error)))
+                    }
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func loginPublisher() -> AnyPublisher<Bool, Error> {
+        Deferred { [weak self] () -> Future<Bool, Error> in
+            guard let self = self else { return Future { $0(.failure(AuthError.underlying(NSError()))) } }
+            return Future { promise in
+                if let error = self.validateInputs() {
+                    promise(.failure(error))
+                    return
+                }
+
+                self.context.perform {
+                    let fetch: NSFetchRequest<Student> = NSFetchRequest(entityName: "Student")
+                    fetch.predicate = NSPredicate(format: "email ==[c] %@ AND password == %@", self.email, self.password)
+                    fetch.fetchLimit = 1
+
+                    do {
+                        let result = try self.context.fetch(fetch)
+                        if result.first != nil {
+                            promise(.success(true))
+                        } else {
+                            promise(.failure(AuthError.invalidCredentials))
+                        }
+                    } catch {
+                        promise(.failure(AuthError.underlying(error)))
+                    }
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+

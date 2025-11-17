@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import CoreData
 
 enum AuthenticationType {
     case login
@@ -27,15 +27,11 @@ struct StudentAuthenticationView: View {
     
     // Form validation for enabling/disabling the primary action button
     private var isFormValid: Bool {
-        let email = viewModel.email.trimmingCharacters(in: .whitespacesAndNewlines)
-        let password = viewModel.password.trimmingCharacters(in: .whitespacesAndNewlines)
-        let emailValid = isValidEmail(email)
-        let passwordValid = !password.isEmpty
         switch authenticationType {
         case .login:
-            return emailValid && passwordValid
+            return viewModel.isFormValid
         case .register:
-            return emailValid && passwordValid && hasAgreedToTerms
+            return viewModel.isFormValid && hasAgreedToTerms
         }
     }
 
@@ -53,6 +49,8 @@ struct StudentAuthenticationView: View {
                 TextField(text: $viewModel.email) {
                     Text("Email")
                 }
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
                 .focused($isEmailFocused)
                 .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isEmailFocused))
                 
@@ -60,6 +58,9 @@ struct StudentAuthenticationView: View {
                     TextField(text: $viewModel.password) {
                         Text("Password")
                     }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
+                    .textContentType(.password)
                     .focused($isPasswordFocused)
                     .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing, content: {
@@ -79,6 +80,9 @@ struct StudentAuthenticationView: View {
                     SecureField(text: $viewModel.password) {
                         Text("Password")
                     }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
+                    .textContentType(.password)
                     .focused($isPasswordFocused)
                     .textFieldStyle(StudentAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
                     .overlay(alignment: .trailing) {
@@ -111,13 +115,13 @@ struct StudentAuthenticationView: View {
             
             Button {
                 if authenticationType == .login {
-                    Task { await viewModel.login() }
+                    viewModel.login()
                 } else {
                     guard hasAgreedToTerms else {
                         viewModel.errorMessage = "Please agree to the Terms and Privacy Policy"
                         return
                     }
-                    Task { await viewModel.register() }
+                    viewModel.register()
                 }
             } label: {
                 Text(authenticationType == .login ? "Login" : "Register")
@@ -149,9 +153,6 @@ struct StudentAuthenticationView: View {
                 isEmailFocused = false
                 isPasswordFocused = false
             }
-        }
-        .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            StudentDashboardView()
         }
     }
 }
@@ -401,3 +402,4 @@ struct BottomView: View {
             .environmentObject(StudentAuthViewModel(context: preview.container.viewContext))
     }
 }
+

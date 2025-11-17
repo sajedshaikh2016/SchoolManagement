@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-internal import CoreData
+import CoreData
 
 struct AdminDashboardView: View {
     @EnvironmentObject private var adminVM: AdminAuthViewModel
@@ -59,3 +59,4 @@ struct AdminDashboardView: View {
             .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
     }
 }
+
