@@ -8,7 +8,7 @@
 
 // Role selection view
 "welcome_title" = "Welcome";
-"select_role_prompt" = "Please select your role to continue:";
+"select_role_prompt" = "Select Role";
 "role_student" = "Student";
 "role_student_description" = "Sign in or register as a student";
 "role_administrator" = "Administrator";

@@ -15,7 +15,7 @@ struct RoleSelectionView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 70)
-                Text("Select Role")
+                Text("select_role_prompt")
                     .font(.system(size: 34, weight: .bold, design: .rounded))
             }
             .padding(.top, 40)
