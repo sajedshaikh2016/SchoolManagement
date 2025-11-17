@@ -92,6 +92,7 @@
 				en,
 				Base,
 				hi,
+				ar,
 			);
 			mainGroup = B4A9108B2EBB318C00A17795;
 			minimizedProjectReferenceProxies = 1;

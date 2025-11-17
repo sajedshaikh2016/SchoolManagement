@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   SchoolManagement
 
@@ -6,4 +6,64 @@
   
 */
 
-"welcome_title" = "आपका स्वागत है";
+// Role selection view
+"welcome_title" = "स्वागत है";
+"select_role_prompt" = "कृपया आगे बढ़ने के लिए अपनी भूमिका चुनें:";
+"role_student" = "विद्यार्थी";
+"role_student_description" = "विद्यार्थी के रूप में साइन इन या रजिस्टर करें";
+"role_administrator" = "प्रशासक";
+"role_administrator_description" = "प्रशासक के रूप में साइन इन या रजिस्टर करें";
+
+
+// Student authentication view
+"student_auth_title_sign_in" = "विद्यार्थी साइन इन";
+"student_auth_title_register" = "विद्यार्थी पंजीकरण";
+"student_sign_in" = "साइन इन";
+"student_register" = "पंजीकरण";
+"student_email_placeholder" = "ईमेल";
+"student_password_placeholder" = "पासवर्ड";
+"student_confirm_password_placeholder" = "पासवर्ड की पुष्टि करें";
+"student_forgot_password" = "पासवर्ड भूल गए?";
+"student_already_have_account" = "क्या आपके पास पहले से खाता है?";
+"student_dont_have_account" = "क्या आपका खाता नहीं है?";
+"student_sign_in_button" = "साइन इन";
+"student_register_button" = "पंजीकरण";
+"student_reset_password_button" = "पासवर्ड रीसेट करें";
+"student_register_terms_policy" = "मैं **नियमों** और **गोपनीयता नीति** से सहमत हूँ।";
+"student_or_separator" = "या";
+"student_register_terms_policy_error" = "कृपया नियमों और गोपनीयता नीति से सहमत हों";
+"student_duplicate_account_error" = "इस ईमेल से खाता पहले से मौजूद है। कृपया साइन इन करें।";
+"student_incorrect_credentials_error" = "गलत ईमेल या पासवर्ड।";
+"student_unknown_error" = "कुछ गलती हो गई। कृपया पुनः प्रयास करें।";
+"student_register_error" = "पंजीकरण विफल। कृपया पुनः प्रयास करें।";
+"student_sign_in_error" = "साइन इन विफल। कृपया पुनः प्रयास करें।";
+"student_enter_email_error" = "कृपया अपना ईमेल दर्ज करें।";
+"student_enter_valid_email_error" = "कृपया एक वैध ईमेल पता दर्ज करें।";
+"student_enter_password_error" = "कृपया अपना पासवर्ड दर्ज करें।";
+
+
+// Admin authentication view
+"admin_auth_title_sign_in" = "प्रशासक साइन इन";
+"admin_auth_title_register" = "प्रशासक पंजीकरण";
+"admin_sign_in" = "साइन इन";
+"admin_register" = "पंजीकरण";
+"admin_username_placeholder" = "उपयोगकर्ता नाम";
+"admin_password_placeholder" = "पासवर्ड";
+"admin_confirm_password_placeholder" = "पासवर्ड की पुष्टि करें";
+"admin_forgot_password" = "पासवर्ड भूल गए?";
+"admin_already_have_account" = "क्या आपके पास पहले से खाता है?";
+"admin_dont_have_account" = "क्या आपका खाता नहीं है?";
+"admin_sign_in_button" = "साइन इन";
+"admin_register_button" = "पंजीकरण";
+"admin_reset_password_button" = "पासवर्ड रीसेट करें";
+"admin_register_terms_policy" = "मैं **नियमों** और **गोपनीयता नीति** से सहमत हूँ।";
+"admin_register_terms_policy_error" = "कृपया नियमों और गोपनीयता नीति से सहमत हों";
+"admin_or_separator" = "या";
+"admin_duplicate_account_error" = "इस उपयोगकर्ता नाम से प्रशासक पहले से मौजूद है। कृपया साइन इन करें।";
+"admin_incorrect_credentials_error" = "गलत ईमेल या पासवर्ड।";
+"admin_unknown_error" = "कुछ गलती हो गई। कृपया पुनः प्रयास करें।";
+"admin_register_error" = "पंजीकरण विफल। कृपया पुनः प्रयास करें।";
+"admin_sign_in_error" = "साइन इन विफल। कृपया पुनः प्रयास करें।";
+"admin_enter_email_error" = "कृपया प्रशासक ईमेल दर्ज करें।";
+"admin_enter_valid_email_error" = "कृपया एक वैध प्रशासक ईमेल पता दर्ज करें।";
+"admin_enter_password_error" = "कृपया प्रशासक पासवर्ड दर्ज करें।";
