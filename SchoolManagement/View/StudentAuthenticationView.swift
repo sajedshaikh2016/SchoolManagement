@@ -71,7 +71,7 @@ struct StudentAuthenticationView: View {
                         } label: {
                             Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                                 .padding()
-                                .foregroundStyle(Color(uiColor: .darkGray))
+                                .foregroundStyle(Color.black)
                         }
                     })
                     .opacity(showPassword ? 1 : 0)
@@ -93,7 +93,7 @@ struct StudentAuthenticationView: View {
                         } label: {
                             Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                                 .padding()
-                                .foregroundStyle(Color(uiColor: .darkGray))
+                                .foregroundStyle(Color.black)
                         }
                         
                     }
@@ -182,15 +182,7 @@ struct AuthenticationButtonType: ButtonStyle {
             .padding(.vertical)
             .foregroundStyle(Color.white)
             .font(.system(size: 20, weight: .bold, design: .rounded))
-            .background(
-                LinearGradient(stops: [
-                    .init(color: Color.black, location: 0.0),
-                    .init(color: Color.black, location: 1.0)
-                ],
-                               startPoint: .leading,
-                               endPoint: .trailing
-                )
-            )
+            .background(Color.black)
             .cornerRadius(15)
             .brightness(configuration.isPressed ? 0.05 : 0)
             .opacity(isEnabled ? (configuration.isPressed ? 0.7 : 1) : 0.4)
@@ -211,10 +203,12 @@ struct StudentAuthenticationTextFieldStyle: TextFieldStyle {
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .stroke(isFocused.wrappedValue ? Color.black : Color.gray.opacity(0.5), lineWidth: 1)
+                        .stroke(isFocused.wrappedValue ? Color.white : Color.white, lineWidth: 1)
+                        .stroke(Color.black, lineWidth: 1)
                         .zIndex(1)
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(colorScheme == .light ? Color(.lightGray) : Color(UIColor.darkGray))
+                        .fill(colorScheme == .light ? Color.white : Color.black)
+                        .stroke(Color.black, lineWidth: 1)
                         .zIndex(0)
                 }
             )

@@ -164,16 +164,31 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
             .font(.system(size: 20, weight: .regular, design: .rounded))
+//            .background(
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+//                        .stroke(isFocused.wrappedValue ? Color.black : Color.gray.opacity(0.5), lineWidth: 1)
+//                        .zIndex(1)
+//                    RoundedRectangle(cornerRadius: 16)
+//                        .fill(colorScheme == .light ? Color(.lightGray) : Color(UIColor.darkGray))
+//                        .zIndex(0)
+//                }
+//            )
+        
+        
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .stroke(isFocused.wrappedValue ? Color.black : Color.gray.opacity(0.5), lineWidth: 1)
+                        .stroke(isFocused.wrappedValue ? Color.white : Color.white, lineWidth: 1)
+                        .stroke(Color.black, lineWidth: 1)
                         .zIndex(1)
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(colorScheme == .light ? Color(.lightGray) : Color(UIColor.darkGray))
+                        .fill(colorScheme == .light ? Color.white : Color.black)
+                        .stroke(Color.black, lineWidth: 1)
                         .zIndex(0)
                 }
             )
+        
             .animation(.easeInOut(duration: 0.2), value: isFocused.wrappedValue )
     }
 }
