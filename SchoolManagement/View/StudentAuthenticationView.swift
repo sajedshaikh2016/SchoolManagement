@@ -200,7 +200,7 @@ struct StudentAuthenticationTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .padding(.horizontal, 20)
-            .padding(.vertical, 10)
+            .padding(.vertical, 15)
             .font(.system(size: 18, weight: .regular, design: .rounded))
             .background(
                 ZStack {
