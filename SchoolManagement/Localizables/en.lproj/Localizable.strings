@@ -12,7 +12,7 @@
 "role_student" = "Student";
 "role_student_description" = "Sign in or register as a student";
 "role_administrator" = "Administrator";
-"role_administrator_description" = "Sign in or register as a student";
+"role_administrator_description" = "Sign in or register as an administrator";
 
 
 // Student authentication view
@@ -58,12 +58,12 @@
 "admin_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
 "admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
 "admin_or_separator" = "OR";
-"admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
 "admin_duplicate_account_error" = "An admin with this username already exists. Please sign in instead.";
-"admin_incorrect_credentials_error" = "Incorrect email or password.";
+"admin_incorrect_credentials_error" = "Incorrect username or password.";
 "admin_unknown_error" = "Something went wrong. Please try again.";
 "admin_register_error" = "Failed to register. Please try again.";
 "admin_sign_in_error" = "Failed to sign in. Please try again.";
-"admin_enter_email_error" = "Please enter admin email.";
-"admin_enter_valid_email_error" = "Please enter a valid admin email address.";
+"admin_enter_username_error" = "Please enter your username.";
+"admin_enter_valid_username_error" = "Please enter a valid username.";
 "admin_enter_password_error" = "Please enter admin password.";
+

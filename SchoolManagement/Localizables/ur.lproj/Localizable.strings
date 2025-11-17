@@ -1,0 +1,67 @@
+/* 
+  Localizable.strings
+  SchoolManagement
+
+  Created by Sajed Shaikh on 15/11/25.
+  
+*/
+
+// Role selection view
+"welcome_title" = "خوش آمدید";
+"select_role_prompt" = "کردار منتخب کریں";
+"role_student" = "طالب علم";
+"role_student_description" = "طالب علم کے طور پر سائن ان یا رجسٹر کریں";
+"role_administrator" = "منتظم";
+"role_administrator_description" = "منتظم کے طور پر سائن ان یا رجسٹر کریں";
+
+// Student authentication view
+"student_auth_title_sign_in" = "طالب علم سائن ان";
+"student_auth_title_register" = "طالب علم رجسٹریشن";
+"student_sign_in" = "سائن ان";
+"student_register" = "رجسٹر کریں";
+"student_email_placeholder" = "ای میل";
+"student_password_placeholder" = "پاس ورڈ";
+"student_confirm_password_placeholder" = "پاس ورڈ کی تصدیق کریں";
+"student_forgot_password" = "پاس ورڈ بھول گئے؟";
+"student_already_have_account" = "کیا آپ کے پاس پہلے سے اکاؤنٹ ہے؟";
+"student_dont_have_account" = "کیا آپ کے پاس اکاؤنٹ نہیں ہے؟";
+"student_sign_in_button" = "سائن ان";
+"student_register_button" = "رجسٹر کریں";
+"student_reset_password_button" = "پاس ورڈ ری سیٹ کریں";
+"student_register_terms_policy" = "میں **شرائط** اور **پرائیویسی پالیسی** سے اتفاق کرتا ہوں۔";
+"student_or_separator" = "یا";
+"student_register_terms_policy_error" = "براہ کرم شرائط اور پرائیویسی پالیسی سے اتفاق کریں";
+"student_duplicate_account_error" = "اس ای میل کے ساتھ اکاؤنٹ پہلے سے موجود ہے۔ براہ کرم سائن ان کریں۔";
+"student_incorrect_credentials_error" = "غلط ای میل یا پاس ورڈ۔";
+"student_unknown_error" = "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔";
+"student_register_error" = "رجسٹریشن ناکام ہو گئی۔ دوبارہ کوشش کریں۔";
+"student_sign_in_error" = "سائن ان ناکام ہو گیا۔ دوبارہ کوشش کریں۔";
+"student_enter_email_error" = "براہ کرم اپنی ای میل درج کریں۔";
+"student_enter_valid_email_error" = "براہ کرم درست ای میل درج کریں۔";
+"student_enter_password_error" = "براہ کرم اپنا پاس ورڈ درج کریں۔";
+
+// Admin authentication view
+"admin_auth_title_sign_in" = "منتظم سائن ان";
+"admin_auth_title_register" = "منتظم رجسٹریشن";
+"admin_sign_in" = "سائن ان";
+"admin_register" = "رجسٹر کریں";
+"admin_username_placeholder" = "یوزر نیم";
+"admin_password_placeholder" = "پاس ورڈ";
+"admin_confirm_password_placeholder" = "پاس ورڈ کی تصدیق کریں";
+"admin_forgot_password" = "پاس ورڈ بھول گئے؟";
+"admin_already_have_account" = "کیا آپ کے پاس پہلے سے اکاؤنٹ ہے؟";
+"admin_dont_have_account" = "کیا آپ کے پاس اکاؤنٹ نہیں ہے؟";
+"admin_sign_in_button" = "سائن ان";
+"admin_register_button" = "رجسٹر کریں";
+"admin_reset_password_button" = "پاس ورڈ ری سیٹ کریں";
+"admin_register_terms_policy" = "میں **شرائط** اور **پرائیویسی پالیسی** سے اتفاق کرتا ہوں۔";
+"admin_register_terms_policy_error" = "براہ کرم شرائط اور پرائیویسی پالیسی سے اتفاق کریں";
+"admin_or_separator" = "یا";
+"admin_duplicate_account_error" = "اس یوزر نیم کے ساتھ منتظم پہلے سے موجود ہے۔ براہ کرم سائن ان کریں۔";
+"admin_incorrect_credentials_error" = "غلط یوزر نیم یا پاس ورڈ۔";
+"admin_unknown_error" = "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔";
+"admin_register_error" = "رجسٹریشن ناکام ہو گئی۔ دوبارہ کوشش کریں۔";
+"admin_sign_in_error" = "سائن ان ناکام ہو گیا۔ دوبارہ کوشش کریں۔";
+"admin_enter_username_error" = "براہ کرم اپنا یوزر نیم درج کریں۔";
+"admin_enter_valid_username_error" = "براہ کرم درست یوزر نیم درج کریں۔";
+"admin_enter_password_error" = "براہ کرم منتظم کا پاس ورڈ درج کریں۔";

@@ -6,14 +6,12 @@
   
 */
 
-// Role selection view
 "welcome_title" = "مرحباً";
-"select_role_prompt" = "يرجى اختيار دورك للمتابعة:";
+"select_role_prompt" = "اختر الدور";
 "role_student" = "طالب";
 "role_student_description" = "تسجيل الدخول أو التسجيل كطالب";
 "role_administrator" = "مسؤول";
 "role_administrator_description" = "تسجيل الدخول أو التسجيل كمسؤول";
-
 
 // Student authentication view
 "student_auth_title_sign_in" = "تسجيل دخول الطالب";
@@ -34,13 +32,12 @@
 "student_register_terms_policy_error" = "يرجى الموافقة على الشروط وسياسة الخصوصية";
 "student_duplicate_account_error" = "هناك حساب بهذا البريد الإلكتروني بالفعل. يرجى تسجيل الدخول.";
 "student_incorrect_credentials_error" = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
-"student_unknown_error" = "حدث خطأ ما. يرجى المحاولة مرة أخرى.";
-"student_register_error" = "فشل في التسجيل. يرجى المحاولة مرة أخرى.";
-"student_sign_in_error" = "فشل في تسجيل الدخول. يرجى المحاولة مرة أخرى.";
+"student_unknown_error" = "حدث خطأ ما. الرجاء المحاولة مرة أخرى.";
+"student_register_error" = "فشل التسجيل. الرجاء المحاولة مرة أخرى.";
+"student_sign_in_error" = "فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.";
 "student_enter_email_error" = "يرجى إدخال بريدك الإلكتروني.";
 "student_enter_valid_email_error" = "يرجى إدخال بريد إلكتروني صالح.";
 "student_enter_password_error" = "يرجى إدخال كلمة المرور.";
-
 
 // Admin authentication view
 "admin_auth_title_sign_in" = "تسجيل دخول المسؤول";
@@ -60,10 +57,10 @@
 "admin_register_terms_policy_error" = "يرجى الموافقة على الشروط وسياسة الخصوصية";
 "admin_or_separator" = "أو";
 "admin_duplicate_account_error" = "يوجد مسؤول بهذا الاسم بالفعل. يرجى تسجيل الدخول.";
-"admin_incorrect_credentials_error" = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+"admin_incorrect_credentials_error" = "اسم المستخدم أو كلمة المرور غير صحيحة.";
 "admin_unknown_error" = "حدث خطأ ما. يرجى المحاولة مرة أخرى.";
-"admin_register_error" = "فشل في التسجيل. يرجى المحاولة مرة أخرى.";
-"admin_sign_in_error" = "فشل في تسجيل الدخول. يرجى المحاولة مرة أخرى.";
-"admin_enter_email_error" = "يرجى إدخال البريد الإلكتروني للمسؤول.";
-"admin_enter_valid_email_error" = "يرجى إدخال بريد إلكتروني صالح للمسؤول.";
+"admin_register_error" = "فشل التسجيل. يرجى المحاولة مرة أخرى.";
+"admin_sign_in_error" = "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.";
+"admin_enter_username_error" = "يرجى إدخال اسم المستخدم.";
+"admin_enter_valid_username_error" = "يرجى إدخال اسم مستخدم صالح.";
 "admin_enter_password_error" = "يرجى إدخال كلمة مرور المسؤول.";

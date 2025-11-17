@@ -8,12 +8,11 @@
 
 // Role selection view
 "welcome_title" = "स्वागत है";
-"select_role_prompt" = "कृपया आगे बढ़ने के लिए अपनी भूमिका चुनें:";
+"select_role_prompt" = "भूमिका चुनें";
 "role_student" = "विद्यार्थी";
 "role_student_description" = "विद्यार्थी के रूप में साइन इन या रजिस्टर करें";
 "role_administrator" = "प्रशासक";
 "role_administrator_description" = "प्रशासक के रूप में साइन इन या रजिस्टर करें";
-
 
 // Student authentication view
 "student_auth_title_sign_in" = "विद्यार्थी साइन इन";
@@ -41,7 +40,6 @@
 "student_enter_valid_email_error" = "कृपया एक वैध ईमेल पता दर्ज करें।";
 "student_enter_password_error" = "कृपया अपना पासवर्ड दर्ज करें।";
 
-
 // Admin authentication view
 "admin_auth_title_sign_in" = "प्रशासक साइन इन";
 "admin_auth_title_register" = "प्रशासक पंजीकरण";
@@ -60,10 +58,10 @@
 "admin_register_terms_policy_error" = "कृपया नियमों और गोपनीयता नीति से सहमत हों";
 "admin_or_separator" = "या";
 "admin_duplicate_account_error" = "इस उपयोगकर्ता नाम से प्रशासक पहले से मौजूद है। कृपया साइन इन करें।";
-"admin_incorrect_credentials_error" = "गलत ईमेल या पासवर्ड।";
+"admin_incorrect_credentials_error" = "गलत उपयोगकर्ता नाम या पासवर्ड।";
 "admin_unknown_error" = "कुछ गलती हो गई। कृपया पुनः प्रयास करें।";
 "admin_register_error" = "पंजीकरण विफल। कृपया पुनः प्रयास करें।";
 "admin_sign_in_error" = "साइन इन विफल। कृपया पुनः प्रयास करें।";
-"admin_enter_email_error" = "कृपया प्रशासक ईमेल दर्ज करें।";
-"admin_enter_valid_email_error" = "कृपया एक वैध प्रशासक ईमेल पता दर्ज करें।";
+"admin_enter_username_error" = "कृपया अपना उपयोगकर्ता नाम दर्ज करें।";
+"admin_enter_valid_username_error" = "कृपया एक वैध उपयोगकर्ता नाम दर्ज करें।";
 "admin_enter_password_error" = "कृपया प्रशासक पासवर्ड दर्ज करें।";

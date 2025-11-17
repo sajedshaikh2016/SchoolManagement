@@ -22,14 +22,14 @@ struct RoleSelectionView: View {
 
             VStack(spacing: 16) {
                 RoleOption(systemImage: "person.crop.circle",
-                           title: "Student",
-                           subtitle: "Login or register as a student") {
+                           title: "role_student",
+                           subtitle: "role_student_description") {
                     StudentAuthenticationView()
                 }
 
                 RoleOption(systemImage: "shield.lefthalf.filled",
-                           title: "Admin",
-                           subtitle: "Sign in to the admin console") {
+                           title: "role_administrator",
+                           subtitle: "role_administrator_description") {
                     AdminAuthenticationView()
                 }
             }
