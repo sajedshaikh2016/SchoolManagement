@@ -44,7 +44,7 @@
 "admin_auth_title_register" = "تسجيل المسؤول";
 "admin_sign_in" = "تسجيل الدخول";
 "admin_register" = "تسجيل";
-"admin_username_placeholder" = "اسم المستخدم";
+"admin_email_placeholder" = "اسم المستخدم";
 "admin_password_placeholder" = "كلمة المرور";
 "admin_confirm_password_placeholder" = "تأكيد كلمة المرور";
 "admin_forgot_password" = "هل نسيت كلمة المرور؟";
@@ -61,6 +61,6 @@
 "admin_unknown_error" = "حدث خطأ ما. يرجى المحاولة مرة أخرى.";
 "admin_register_error" = "فشل التسجيل. يرجى المحاولة مرة أخرى.";
 "admin_sign_in_error" = "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.";
-"admin_enter_username_error" = "يرجى إدخال اسم المستخدم.";
-"admin_enter_valid_username_error" = "يرجى إدخال اسم مستخدم صالح.";
+"admin_enter_email_error" = "يرجى إدخال اسم المستخدم.";
+"admin_enter_valid_email_error" = "يرجى إدخال اسم مستخدم صالح.";
 "admin_enter_password_error" = "يرجى إدخال كلمة مرور المسؤول.";

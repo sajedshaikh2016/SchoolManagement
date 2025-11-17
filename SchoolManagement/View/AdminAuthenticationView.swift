@@ -92,7 +92,7 @@ struct AdminAuthenticationView: View {
             
             
             VStack(spacing: 15) {
-                TextField(text: $adminVM.username) { Text("admin_username_placeholder") }
+                TextField(text: $adminVM.email) { Text("admin_email_placeholder") }
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
                     .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))

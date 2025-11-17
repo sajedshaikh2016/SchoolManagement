@@ -45,7 +45,7 @@
 "admin_auth_title_register" = "منتظم رجسٹریشن";
 "admin_sign_in" = "سائن ان";
 "admin_register" = "رجسٹر کریں";
-"admin_username_placeholder" = "یوزر نیم";
+"admin_email_placeholder" = "یوزر نیم";
 "admin_password_placeholder" = "پاس ورڈ";
 "admin_confirm_password_placeholder" = "پاس ورڈ کی تصدیق کریں";
 "admin_forgot_password" = "پاس ورڈ بھول گئے؟";
@@ -62,6 +62,6 @@
 "admin_unknown_error" = "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔";
 "admin_register_error" = "رجسٹریشن ناکام ہو گئی۔ دوبارہ کوشش کریں۔";
 "admin_sign_in_error" = "سائن ان ناکام ہو گیا۔ دوبارہ کوشش کریں۔";
-"admin_enter_username_error" = "براہ کرم اپنا یوزر نیم درج کریں۔";
-"admin_enter_valid_username_error" = "براہ کرم درست یوزر نیم درج کریں۔";
+"admin_enter_email_error" = "براہ کرم اپنا یوزر نیم درج کریں۔";
+"admin_enter_valid_email_error" = "براہ کرم درست یوزر نیم درج کریں۔";
 "admin_enter_password_error" = "براہ کرم منتظم کا پاس ورڈ درج کریں۔";

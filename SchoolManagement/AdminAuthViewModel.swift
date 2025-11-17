@@ -13,7 +13,7 @@ import SwiftUI
 @MainActor
 final class AdminAuthViewModel: ObservableObject {
     // Inputs
-    @Published var username: String = ""
+    @Published var email: String = ""
     @Published var password: String = ""
 
     // Outputs
@@ -28,7 +28,7 @@ final class AdminAuthViewModel: ObservableObject {
         self.context = context
 
         // Derive form validity using Combine
-        Publishers.CombineLatest($username, $password)
+        Publishers.CombineLatest($email, $password)
             .map { user, pass in
                 let u = user.trimmingCharacters(in: .whitespacesAndNewlines)
                 let p = pass.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -79,7 +79,7 @@ final class AdminAuthViewModel: ObservableObject {
 
     func logout() {
         isAuthenticated = false
-        username = ""
+        email = ""
         password = ""
         errorMessage = nil
     }
@@ -89,7 +89,7 @@ final class AdminAuthViewModel: ObservableObject {
 private extension AdminAuthViewModel {
     enum AuthError: LocalizedError, Equatable {
         case invalidInput(String)
-        case duplicateUsername
+        case duplicateEmail
         case invalidCredentials
         case underlying(Error)
 
@@ -97,7 +97,7 @@ private extension AdminAuthViewModel {
             switch self {
             case .invalidInput(let message):
                 return LocalizedStringKey(message)
-            case .duplicateUsername:
+            case .duplicateEmail:
                 return LocalizedStringKey("admin_duplicate_account_error")
             case .invalidCredentials:
                 return LocalizedStringKey("admin_incorrect_credentials_error")
@@ -110,7 +110,7 @@ private extension AdminAuthViewModel {
             switch (lhs, rhs) {
             case (.invalidInput(let lMsg), .invalidInput(let rMsg)):
                 return lMsg == rMsg
-            case (.duplicateUsername, .duplicateUsername):
+            case (.duplicateEmail, .duplicateEmail):
                 return true
             case (.invalidCredentials, .invalidCredentials):
                 return true
@@ -126,7 +126,7 @@ private extension AdminAuthViewModel {
     }
 
     func validateInputs(requirePassword: Bool = true) -> AuthError? {
-        let u = username.trimmingCharacters(in: .whitespacesAndNewlines)
+        let u = email.trimmingCharacters(in: .whitespacesAndNewlines)
         let p = password.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !u.isEmpty else { return .invalidInput("admin_enter_email_error") }
         if requirePassword {
@@ -147,13 +147,13 @@ private extension AdminAuthViewModel {
                 // Core Data work on the context's queue
                 self.context.perform {
                     let fetch: NSFetchRequest<Admin> = NSFetchRequest(entityName: "Admin")
-                    fetch.predicate = NSPredicate(format: "username ==[c] %@", self.username)
+                    fetch.predicate = NSPredicate(format: "email ==[c] %@", self.email)
                     fetch.fetchLimit = 1
 
                     do {
                         let existing = try self.context.fetch(fetch)
                         guard existing.isEmpty else {
-                            promise(.failure(AuthError.duplicateUsername))
+                            promise(.failure(AuthError.duplicateEmail))
                             return
                         }
 
@@ -162,7 +162,7 @@ private extension AdminAuthViewModel {
                             return
                         }
                         let admin = Admin(entity: entity, insertInto: self.context)
-                        admin.username = self.username.trimmingCharacters(in: .whitespacesAndNewlines)
+                        admin.email = self.email.trimmingCharacters(in: .whitespacesAndNewlines)
                         admin.password = self.password // NOTE: Do not store plaintext passwords in production.
 
                         try self.context.save()
@@ -187,7 +187,7 @@ private extension AdminAuthViewModel {
 
                 self.context.perform {
                     let fetch: NSFetchRequest<Admin> = NSFetchRequest(entityName: "Admin")
-                    fetch.predicate = NSPredicate(format: "username ==[c] %@ AND password == %@", self.username, self.password)
+                    fetch.predicate = NSPredicate(format: "email ==[c] %@ AND password == %@", self.email, self.password)
                     fetch.fetchLimit = 1
 
                     do {

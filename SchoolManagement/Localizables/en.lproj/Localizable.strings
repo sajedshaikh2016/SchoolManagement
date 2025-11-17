@@ -45,7 +45,7 @@
 "admin_auth_title_register" = "Administrator Register";
 "admin_sign_in" = "Sign In";
 "admin_register" = "Register";
-"admin_username_placeholder" = "Username";
+"admin_email_placeholder" = "Email";
 "admin_password_placeholder" = "Password";
 "admin_confirm_password_placeholder" = "Confirm Password";
 "admin_forgot_password" = "Forgot Password?";
@@ -57,12 +57,12 @@
 "admin_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
 "admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
 "admin_or_separator" = "OR";
-"admin_duplicate_account_error" = "An admin with this username already exists. Please sign in instead.";
-"admin_incorrect_credentials_error" = "Incorrect username or password.";
+"admin_duplicate_account_error" = "An admin with this email already exists. Please sign in instead.";
+"admin_incorrect_credentials_error" = "Incorrect email or password.";
 "admin_unknown_error" = "Something went wrong. Please try again.";
 "admin_register_error" = "Failed to register. Please try again.";
 "admin_sign_in_error" = "Failed to sign in. Please try again.";
-"admin_enter_username_error" = "Please enter your username.";
-"admin_enter_valid_username_error" = "Please enter a valid username.";
+"admin_enter_email_error" = "Please enter your email.";
+"admin_enter_valid_email_error" = "Please enter a valid email.";
 "admin_enter_password_error" = "Please enter admin password.";
 

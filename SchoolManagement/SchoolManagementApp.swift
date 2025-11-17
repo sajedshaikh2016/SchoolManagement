@@ -70,7 +70,7 @@ struct AuthenticationRoot: View {
         .onChange(of: adminViewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 // Clear admin auth fields when navigating away after successful auth
-                adminViewModel.username = ""
+                adminViewModel.email = ""
                 adminViewModel.password = ""
                 path = [.adminDashboard]
             } else {
