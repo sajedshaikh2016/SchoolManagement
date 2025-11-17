@@ -56,7 +56,7 @@ struct AuthenticationRoot: View {
                     }
                 }
         }
-        .onChange(of: studentViewModel.isAuthenticated) { isAuthenticated in
+        .onChange(of: studentViewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 // Clear student auth fields when navigating away after successful auth
                 studentViewModel.email = ""
@@ -67,7 +67,7 @@ struct AuthenticationRoot: View {
                 path = []
             }
         }
-        .onChange(of: adminViewModel.isAuthenticated) { isAuthenticated in
+        .onChange(of: adminViewModel.isAuthenticated) { _, isAuthenticated in
             if isAuthenticated {
                 // Clear admin auth fields when navigating away after successful auth
                 adminViewModel.username = ""
