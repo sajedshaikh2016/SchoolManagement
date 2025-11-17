@@ -47,7 +47,7 @@ struct StudentAuthenticationView: View {
             
             VStack(spacing: 15) {
                 TextField(text: $viewModel.email) {
-                    Text("Email")
+                    Text("student_email_placeholder")
                 }
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled(true)
@@ -56,7 +56,7 @@ struct StudentAuthenticationView: View {
                 
                 ZStack {
                     TextField(text: $viewModel.password) {
-                        Text("Password")
+                        Text("student_email_placeholder")
                     }
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
@@ -78,7 +78,7 @@ struct StudentAuthenticationView: View {
                     .zIndex(1)
                     
                     SecureField(text: $viewModel.password) {
-                        Text("Password")
+                        Text("student_password_placeholder")
                     }
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
@@ -107,7 +107,7 @@ struct StudentAuthenticationView: View {
                         }
                         .toggleStyle(AgreeStyle())
                         
-                        Text("I agree to the **Terms** and **Privacy Policy**.")
+                        Text("student_register_terms_policy")
                     })
                 }
                 
@@ -118,13 +118,13 @@ struct StudentAuthenticationView: View {
                     viewModel.login()
                 } else {
                     guard hasAgreedToTerms else {
-                        viewModel.errorMessage = "Please agree to the Terms and Privacy Policy"
+                        viewModel.errorMessage = "student_register_terms_policy_error"
                         return
                     }
                     viewModel.register()
                 }
             } label: {
-                Text(authenticationType == .login ? "Login" : "Register")
+                Text(authenticationType == .login ? "student_sign_in_button" : "student_register_button")
             }
             .buttonStyle(AuthenticationButtonType())
             .disabled(!isFormValid)
@@ -228,7 +228,7 @@ struct TopView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 75)
             
-            Text(authenticationType == .login ? "Student Sign In" : "Student Register")
+            Text(authenticationType == .login ? "student_auth_title_sign_in" : "student_auth_title_register")
                 .font(.system(size: 32, weight: .bold, design: .rounded))
                 
         }
@@ -246,7 +246,7 @@ struct SegmentedView: View {
                     authenticationType = .login
                 }
             } label: {
-                Text("Login")
+                Text("student_sign_in")
                     .fontWeight(authenticationType == .login ?  .semibold : .regular)
                     .foregroundStyle(authenticationType == .login ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
                     .padding(.vertical, 12)
@@ -274,7 +274,7 @@ struct SegmentedView: View {
                     authenticationType = .register
                 }
             } label: {
-                Text("Register")
+                Text("student_register")
                     .fontWeight(authenticationType == .register ?  .semibold : .regular)
                     .foregroundStyle(authenticationType == .register ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
                     .padding(.vertical, 12)
@@ -315,7 +315,7 @@ struct BottomView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack(spacing: 3) {
-                Text(authenticationType == .login ? "Don't have an account?" : "Already have an account?")
+                Text(authenticationType == .login ? "student_dont_have_account" : "student_already_have_account")
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                 
                 Button {
@@ -329,7 +329,7 @@ struct BottomView: View {
                         }
                     }
                 } label: {
-                    Text(authenticationType == .login ? "Register" : "Login")
+                    Text(authenticationType == .login ? "student_register" : "student_sign_in")
                         .font(Font.system(size: 15, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .light ? .black : .white)
                 }
@@ -340,7 +340,7 @@ struct BottomView: View {
                 Rectangle()
                     .frame(height: 1.5)
                     .foregroundStyle(Color.gray.opacity(0.3))
-                Text("OR")
+                Text("student_or_separator")
                     .font(Font.system(size: 14, weight: .regular, design: .rounded))
                 Rectangle()
                     .frame(height: 1.5)

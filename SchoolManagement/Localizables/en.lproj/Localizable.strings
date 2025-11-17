@@ -13,3 +13,40 @@
 "role_student_description" = "Sign in or register as a student";
 "role_administrator" = "Administrator";
 "role_administrator_description" = "Sign in or register as a student";
+
+
+// Student authentication view
+"student_auth_title_sign_in" = "Student Sign In";
+"student_auth_title_register" = "Student Register";
+"student_sign_in" = "Sign In";
+"student_register" = "Register";
+"student_email_placeholder" = "Email";
+"student_password_placeholder" = "Password";
+"student_confirm_password_placeholder" = "Confirm Password";
+"student_forgot_password" = "Forgot Password?";
+"student_already_have_account" = "Already have an account?";
+"student_dont_have_account" = "Don't have an account?";
+"student_sign_in_button" = "Sign In";
+"student_register_button" = "Register";
+"student_reset_password_button" = "Reset Password";
+"student_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
+"student_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
+"student_or_separator" = "OR";
+
+// Admin authentication view
+"admin_auth_title_sign_in" = "Administrator Sign In";
+"admin_auth_title_register" = "Administrator Register";
+"admin_sign_in" = "Sign In";
+"admin_register" = "Register";
+"admin_username_placeholder" = "Username";
+"admin_password_placeholder" = "Password";
+"admin_confirm_password_placeholder" = "Confirm Password";
+"admin_forgot_password" = "Forgot Password?";
+"admin_already_have_account" = "Already have an account?";
+"admin_dont_have_account" = "Don't have an account?";
+"admin_sign_in_button" = "Sign In";
+"admin_register_button" = "Register";
+"admin_reset_password_button" = "Reset Password";
+"admin_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
+"admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
+"admin_or_separator" = "OR";

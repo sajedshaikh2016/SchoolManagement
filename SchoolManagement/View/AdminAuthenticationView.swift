@@ -27,7 +27,7 @@ struct AdminAuthenticationView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 70)
-                Text(authType == .login ? "Admin Sign In" : "Admin Register")
+                Text(authType == .login ? "admin_auth_title_sign_in" : "admin_auth_title_register")
                     .font(.system(size: 32, weight: .bold, design: .rounded))
             }
             .padding(.top, 24)
@@ -36,7 +36,7 @@ struct AdminAuthenticationView: View {
                 Button {
                     withAnimation { authType = .login }
                 } label: {
-                    Text("Login")
+                    Text("admin_sign_in")
                         .fontWeight(authType == .login ? .semibold : .regular)
                         .foregroundStyle(authType == .login ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
                         .padding(.vertical, 12)
@@ -60,7 +60,7 @@ struct AdminAuthenticationView: View {
                 Button {
                     withAnimation { authType = .register }
                 } label: {
-                    Text("Register")
+                    Text("admin_register")
                         .fontWeight(authType == .register ?  .semibold : .regular)
                         .foregroundStyle(authType == .register ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
                         .padding(.vertical, 12)
@@ -92,14 +92,14 @@ struct AdminAuthenticationView: View {
             
             
             VStack(spacing: 15) {
-                TextField(text: $adminVM.username) { Text("Username") }
+                TextField(text: $adminVM.username) { Text("admin_username_placeholder") }
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
                     .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))
                     .focused($isUserFocused)
 
                 ZStack {
-                    TextField(text: $adminVM.password) { Text("Password") }
+                    TextField(text: $adminVM.password) { Text("admin_password_placeholder") }
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
                         .textContentType(.password)
@@ -114,7 +114,7 @@ struct AdminAuthenticationView: View {
                             }
                         }
 
-                    SecureField(text: $adminVM.password) { Text("Password") }
+                    SecureField(text: $adminVM.password) { Text("admin_password_placeholder") }
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
                         .textContentType(.password)
@@ -138,7 +138,7 @@ struct AdminAuthenticationView: View {
                     adminVM.register()
                 }
             } label: {
-                Text(authType == .login ? "Sign In" : "Register")
+                Text(authType == .login ? "admin_sign_in_button" : "admin_register_button")
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(AuthenticationButtonType())
