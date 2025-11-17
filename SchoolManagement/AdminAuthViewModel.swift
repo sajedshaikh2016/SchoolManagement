@@ -29,10 +29,10 @@ final class AdminAuthViewModel: ObservableObject {
 
         // Derive form validity using Combine
         Publishers.CombineLatest($email, $password)
-            .map { user, pass in
-                let u = user.trimmingCharacters(in: .whitespacesAndNewlines)
+            .map { email, pass in
+                let e = email.trimmingCharacters(in: .whitespacesAndNewlines)
                 let p = pass.trimmingCharacters(in: .whitespacesAndNewlines)
-                return !u.isEmpty && !p.isEmpty
+                return e.contains("@") && e.contains(".") && !p.isEmpty
             }
             .removeDuplicates()
             .assign(to: &$isFormValid)
@@ -132,6 +132,7 @@ private extension AdminAuthViewModel {
         if requirePassword {
             guard !p.isEmpty else { return .invalidInput("admin_enter_password_error") }
         }
+        guard u.contains("@"), u.contains(".") else { return .invalidInput("admin_enter_valid_email_error") }
         return nil
     }
 
@@ -206,3 +207,4 @@ private extension AdminAuthViewModel {
         .eraseToAnyPublisher()
     }
 }
+
