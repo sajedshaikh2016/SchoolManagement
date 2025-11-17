@@ -8,146 +8,49 @@
 import SwiftUI
 import CoreData
 
+// MARK: - AdminAuthenticationView
 struct AdminAuthenticationView: View {
+    // MARK: Environment
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var adminVM: AdminAuthViewModel
+
+    // MARK: Focus
     @FocusState private var isUserFocused: Bool
     @FocusState private var isPasswordFocused: Bool
+
+    // MARK: State
     @State private var showPassword: Bool = false
     @State private var authType: AuthenticationType = .login
 
-    private var isFormValid: Bool {
-        adminVM.isFormValid
-    }
+    // MARK: Derived
+    private var isFormValid: Bool { adminVM.isFormValid }
 
+    // MARK: Body
     var body: some View {
         VStack(spacing: 16) {
-            VStack(spacing: 8) {
-                Image(systemName: "shield.righthalf.filled")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 70)
-                Text(authType == .login ? "admin_auth_title_sign_in" : "admin_auth_title_register")
-                    .font(.system(size: 32, weight: .bold, design: .rounded))
-            }
-            .padding(.top, 24)
+            header
+                .padding(.top, 24)
 
-            HStack(spacing: 0) {
-                Button {
-                    withAnimation { authType = .login }
-                } label: {
-                    Text("admin_sign_in")
-                        .fontWeight(authType == .login ? .semibold : .regular)
-                        .foregroundStyle(authType == .login ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, authType == .login ? 30 : 20)
-                        .background(
-                            ZStack {
-                                if authType == .login {
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.black.opacity(0.3), lineWidth: 0.5)
-                                        .zIndex(1)
-                                }
-                                
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(authType == .login ?
-                                          Color(uiColor: UIColor.systemGray5):
-                                            Color(UIColor.systemGray6))
-                                    .zIndex(0)
-                            }
-                        )
-                }
-                Button {
-                    withAnimation { authType = .register }
-                } label: {
-                    Text("admin_register")
-                        .fontWeight(authType == .register ?  .semibold : .regular)
-                        .foregroundStyle(authType == .register ? (colorScheme == .light ? Color(uiColor: UIColor.darkGray): .white) : .gray)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, authType == .register ? 30 : 20)
-                        .background(
-                            ZStack {
-                                if authType == .register {
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.black.opacity(0.3), lineWidth: 0.5)
-                                        .zIndex(1)
-                                }
-                                
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(authType == .register ?
-                                          Color(uiColor: UIColor.systemGray5):
-                                            Color(UIColor.systemGray6))
-                                    .zIndex(0)
-                            }
-                        )
-                }
-            }
-            .background(
-                Color(uiColor: .systemGray6)
-            )
-            .cornerRadius(20)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 10)
-            .frame(maxWidth: .infinity)
-            
-            
-            VStack(spacing: 15) {
-                TextField(text: $adminVM.email) { Text("admin_email_placeholder") }
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled(true)
-                    .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))
-                    .focused($isUserFocused)
+            authTypeSwitcher
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
+                .frame(maxWidth: .infinity)
 
-                ZStack {
-                    TextField(text: $adminVM.password) { Text("admin_password_placeholder") }
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                        .textContentType(.password)
-                        .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
-                        .focused($isPasswordFocused)
-                        .opacity(showPassword ? 1 : 0)
-                        .overlay(alignment: .trailing) {
-                            Button { withAnimation { showPassword.toggle() } } label: {
-                                Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                    .padding()
-                                    .foregroundStyle(Color(uiColor: .darkGray))
-                            }
-                        }
+            fields
 
-                    SecureField(text: $adminVM.password) { Text("admin_password_placeholder") }
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                        .textContentType(.password)
-                        .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
-                        .focused($isPasswordFocused)
-                        .opacity(showPassword ? 0 : 1)
-                        .overlay(alignment: .trailing) {
-                            Button { withAnimation { showPassword.toggle() } } label: {
-                                Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
-                                    .padding()
-                                    .foregroundStyle(Color(uiColor: .darkGray))
-                            }
-                        }
-                }
-            }
-
-            Button {
-                if authType == .login {
-                    adminVM.login()
-                } else {
-                    adminVM.register()
-                }
-            } label: {
-                Text(authType == .login ? "admin_sign_in_button" : "admin_register_button")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(AuthenticationButtonType())
-            .disabled(!isFormValid)
+            primaryActionButton
+                .disabled(!isFormValid)
 
             Spacer()
         }
         .padding()
-        .alert("Error", isPresented: Binding(get: { adminVM.errorMessage != nil }, set: { if !$0 { adminVM.errorMessage = nil } })) {
+        .alert(
+            "Error",
+            isPresented: Binding(
+                get: { adminVM.errorMessage != nil },
+                set: { if !$0 { adminVM.errorMessage = nil } }
+            )
+        ) {
             Button("OK", role: .cancel) { adminVM.errorMessage = nil }
         } message: {
             Text(adminVM.errorMessage ?? "")
@@ -155,10 +58,122 @@ struct AdminAuthenticationView: View {
     }
 }
 
+// MARK: - Subviews
+private extension AdminAuthenticationView {
+    var header: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "shield.righthalf.filled")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 70)
+
+            Text(authType == .login ? "admin_auth_title_sign_in" : "admin_auth_title_register")
+                .font(.system(size: 32, weight: .bold, design: .rounded))
+        }
+    }
+
+    var authTypeSwitcher: some View {
+        HStack(spacing: 0) {
+            switcherButton(titleKey: "admin_sign_in", isActive: authType == .login) {
+                withAnimation { authType = .login }
+            }
+
+            switcherButton(titleKey: "admin_register", isActive: authType == .register) {
+                withAnimation { authType = .register }
+            }
+        }
+        .background(Color(uiColor: .systemGray6))
+        .cornerRadius(20)
+    }
+
+    func switcherButton(titleKey: LocalizedStringKey, isActive: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(titleKey)
+                .fontWeight(isActive ? .semibold : .regular)
+                .foregroundStyle(isActive ? (colorScheme == .light ? Color(uiColor: .darkGray) : .white) : .gray)
+                .padding(.vertical, 12)
+                .padding(.horizontal, isActive ? 30 : 20)
+                .background(
+                    ZStack {
+                        if isActive {
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.black.opacity(0.3), lineWidth: 0.5)
+                                .zIndex(1)
+                        }
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(isActive ? Color(uiColor: .systemGray5) : Color(uiColor: .systemGray6))
+                            .zIndex(0)
+                    }
+                )
+        }
+        .buttonStyle(.plain)
+    }
+
+    var fields: some View {
+        VStack(spacing: 15) {
+            TextField(text: $adminVM.email) { Text("admin_email_placeholder") }
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isUserFocused))
+                .focused($isUserFocused)
+
+            passwordField
+        }
+    }
+
+    var passwordField: some View {
+        ZStack {
+            // Visible text field when showing password
+            TextField(text: $adminVM.password) { Text("admin_password_placeholder") }
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .textContentType(.password)
+                .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                .focused($isPasswordFocused)
+                .opacity(showPassword ? 1 : 0)
+                .overlay(alignment: .trailing) { passwordToggle }
+
+            // Secure field when hiding password
+            SecureField(text: $adminVM.password) { Text("admin_password_placeholder") }
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(true)
+                .textContentType(.password)
+                .textFieldStyle(AdminAuthenticationTextFieldStyle(isFocused: $isPasswordFocused))
+                .focused($isPasswordFocused)
+                .opacity(showPassword ? 0 : 1)
+                .overlay(alignment: .trailing) { passwordToggle }
+        }
+    }
+
+    var passwordToggle: some View {
+        Button { withAnimation { showPassword.toggle() } } label: {
+            Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                .padding()
+                .foregroundStyle(Color(uiColor: .darkGray))
+        }
+        .buttonStyle(.plain)
+    }
+
+    var primaryActionButton: some View {
+        Button {
+            if authType == .login {
+                adminVM.login()
+            } else {
+                adminVM.register()
+            }
+        } label: {
+            Text(authType == .login ? "admin_sign_in_button" : "admin_register_button")
+                .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(AuthenticationButtonType())
+    }
+}
+
+// MARK: - Styles
 struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
     @Environment(\.colorScheme) private var colorScheme
     let isFocused: FocusState<Bool>.Binding
-    
+
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .padding(.horizontal, 20)
@@ -167,7 +182,6 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .stroke(isFocused.wrappedValue ? Color.white : Color.white, lineWidth: 1)
                         .stroke(colorScheme == .light ? Color.black : Color.white, lineWidth: 1)
                         .zIndex(1)
                     RoundedRectangle(cornerRadius: 20)
@@ -176,10 +190,11 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
                         .zIndex(0)
                 }
             )
-            .animation(.easeInOut(duration: 0.2), value: isFocused.wrappedValue )
+            .animation(.easeInOut(duration: 0.2), value: isFocused.wrappedValue)
     }
 }
 
+// MARK: - Preview
 #Preview {
     let preview = PersistenceController.preview
     return NavigationStack {
@@ -188,4 +203,3 @@ struct AdminAuthenticationTextFieldStyle: TextFieldStyle {
             .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
     }
 }
-
