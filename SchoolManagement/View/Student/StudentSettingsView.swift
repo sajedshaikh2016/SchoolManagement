@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  StudentSettingsView.swift
 //  SchoolManagement
 //
 //  Created by Sajed Shaikh on 05/11/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct StudentSettingsView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "gear")
@@ -28,6 +28,6 @@ struct SettingsView: View {
 
 #Preview {
     NavigationStack {
-        SettingsView()
+        StudentSettingsView()
     }
 }

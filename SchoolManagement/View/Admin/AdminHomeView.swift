@@ -1,33 +1,33 @@
 //
-//  ProfileView.swift
+//  AdminHomeView.swift
 //  SchoolManagement
 //
-//  Created by Assistant on 05/11/25.
+//  Created by Sajed Shaikh on 05/11/25.
 //
 
 import SwiftUI
 
-struct ProfileView: View {
+struct AdminHomeView: View {
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: "person.crop.circle.fill")
+            Image(systemName: "house")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)
 
-            Text("Profile")
+            Text("Home")
                 .font(.system(size: 28, weight: .bold, design: .rounded))
 
-            Text("This is the profile screen.")
+            Text("This is the home screen.")
                 .foregroundStyle(.secondary)
         }
         .padding()
-        .navigationTitle("Profile")
+        .navigationTitle("Home")
     }
 }
 
 #Preview {
     NavigationStack {
-        ProfileView()
+        AdminHomeView()
     }
 }

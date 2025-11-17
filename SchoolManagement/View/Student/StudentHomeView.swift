@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  StudentHomeView.swift
 //  SchoolManagement
 //
 //  Created by Sajed Shaikh on 05/11/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct StudentHomeView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "house")
@@ -28,6 +28,6 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView()
+        StudentHomeView()
     }
 }

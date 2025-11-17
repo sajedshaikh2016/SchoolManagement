@@ -1,25 +1,25 @@
 //
-//  AdminDashboardView.swift
+//  StudentDashboardView.swift
 //  SchoolManagement
 //
-//  Created by Assistant on 12/11/25.
+//  Created by Assistant on 05/11/25.
 //
 
 import SwiftUI
 import CoreData
 
-struct AdminDashboardView: View {
-    @EnvironmentObject private var adminVM: AdminAuthViewModel
+struct StudentDashboardView: View {
+    @EnvironmentObject private var studentVM: StudentAuthViewModel
 
     var body: some View {
         VStack {
             TabView {
-                HomeView()
+                StudentHomeView()
                     .tabItem {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                SettingsView()
+                StudentSettingsView()
                     .tabItem {
                         Image(systemName: "gear")
                         Text("Settings")
@@ -27,19 +27,25 @@ struct AdminDashboardView: View {
             }
             .tint(.yellow)
         }
-        .navigationTitle("Admin Dashboard")
+        .navigationTitle("Dashboard")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     NavigationLink {
-                        ProfileView()
+                        StudentProfileView()
                     } label: {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
 
+                    NavigationLink {
+                        StudentSettingsView()
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    
                     Button(role: .destructive) {
-                        adminVM.logout()
+                        studentVM.logout()
                     } label: {
                         Label("Logout", systemImage: "rectangle.portrait.and.arrow.right")
                     }
@@ -55,8 +61,7 @@ struct AdminDashboardView: View {
 #Preview {
     let preview = PersistenceController.preview
     return NavigationStack {
-        AdminDashboardView()
-            .environmentObject(AdminAuthViewModel(context: preview.container.viewContext))
+        StudentDashboardView()
+            .environmentObject(StudentAuthViewModel(context: preview.container.viewContext))
     }
 }
-
