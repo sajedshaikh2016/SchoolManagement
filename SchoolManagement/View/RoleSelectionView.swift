@@ -74,9 +74,9 @@ private struct RoleOptionLabel: View {
             Image(systemName: systemImage)
                 .imageScale(.large)
             VStack(alignment: .leading, spacing: 4) {
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
-                Text(subtitle)
+                Text(LocalizedStringKey(subtitle))
                     .foregroundStyle(.secondary)
                     .font(.system(size: 14, weight: .regular, design: .rounded))
             }
