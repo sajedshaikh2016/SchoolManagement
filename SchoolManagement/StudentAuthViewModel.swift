@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreData
+import SwiftUI
 
 @MainActor
 final class StudentAuthViewModel: ObservableObject {
@@ -16,7 +17,7 @@ final class StudentAuthViewModel: ObservableObject {
     @Published var password: String = ""
 
     // Outputs
-    @Published var errorMessage: String? = nil
+    @Published var errorMessage: LocalizedStringKey? = nil
     @Published var isAuthenticated: Bool = false
     @Published var isFormValid: Bool = false
 
@@ -45,7 +46,7 @@ final class StudentAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "student_register_error"
+                    self.errorMessage = (error as? AuthError)?.localizedKey ?? LocalizedStringKey("student_register_error")
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -64,7 +65,7 @@ final class StudentAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "student_sign_in_error"
+                    self.errorMessage = (error as? AuthError)?.localizedKey ?? LocalizedStringKey("student_sign_in_error")
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -99,6 +100,19 @@ private extension StudentAuthViewModel {
                 return "student_incorrect_credentials_error"
             case .underlying:
                 return "student_unknown_error"
+            }
+        }
+        
+        var localizedKey: LocalizedStringKey {
+            switch self {
+            case .invalidInput(let message):
+                return LocalizedStringKey(message)
+            case .duplicateEmail:
+                return LocalizedStringKey("student_duplicate_account_error")
+            case .invalidCredentials:
+                return LocalizedStringKey("student_incorrect_credentials_error")
+            case .underlying:
+                return LocalizedStringKey("student_unknown_error")
             }
         }
         
@@ -153,7 +167,7 @@ private extension StudentAuthViewModel {
                         }
 
                         guard let entity = NSEntityDescription.entity(forEntityName: "Student", in: self.context) else {
-                            promise(.failure(AuthError.underlying(NSError(domain: "StudentEntity", code: -1))))
+                            promise(.failure(AuthError.underlying(NSError(domain: "StudentEntity", code: -1, userInfo: nil))))
                             return
                         }
                         let student = Student(entity: entity, insertInto: self.context)
@@ -201,4 +215,3 @@ private extension StudentAuthViewModel {
         .eraseToAnyPublisher()
     }
 }
-

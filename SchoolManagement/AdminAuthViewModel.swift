@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreData
+import SwiftUI
 
 @MainActor
 final class AdminAuthViewModel: ObservableObject {
@@ -17,7 +18,7 @@ final class AdminAuthViewModel: ObservableObject {
 
     // Outputs
     @Published var isAuthenticated: Bool = false
-    @Published var errorMessage: String? = nil
+    @Published var errorMessage: LocalizedStringKey? = nil
     @Published var isFormValid: Bool = false
 
     private let context: NSManagedObjectContext
@@ -47,7 +48,7 @@ final class AdminAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "admin_register_error"
+                    self.errorMessage = (error as? AuthError)?.localizedKey ?? LocalizedStringKey("admin_register_error")
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -66,7 +67,7 @@ final class AdminAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "admin_sign_in_error"
+                    self.errorMessage = (error as? AuthError)?.localizedKey ?? LocalizedStringKey("admin_sign_in_error")
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -92,16 +93,16 @@ private extension AdminAuthViewModel {
         case invalidCredentials
         case underlying(Error)
 
-        var errorDescription: String? {
+        var localizedKey: LocalizedStringKey {
             switch self {
             case .invalidInput(let message):
-                return message
+                return LocalizedStringKey(message)
             case .duplicateUsername:
-                return "admin_duplicate_account_error"
+                return LocalizedStringKey("admin_duplicate_account_error")
             case .invalidCredentials:
-                return "admin_incorrect_credentials_error"
+                return LocalizedStringKey("admin_incorrect_credentials_error")
             case .underlying:
-                return "admin_unknown_error"
+                return LocalizedStringKey("admin_unknown_error")
             }
         }
 
@@ -157,7 +158,7 @@ private extension AdminAuthViewModel {
                         }
 
                         guard let entity = NSEntityDescription.entity(forEntityName: "Admin", in: self.context) else {
-                            promise(.failure(AuthError.underlying(NSError(domain: "AdminEntity", code: -1))))
+                            promise(.failure(AuthError.underlying(NSError(domain: "AdminEntity", code: -1, userInfo: nil))))
                             return
                         }
                         let admin = Admin(entity: entity, insertInto: self.context)
