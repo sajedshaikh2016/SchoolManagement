@@ -76,9 +76,13 @@ private struct RoleOptionLabel: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(LocalizedStringKey(title))
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text(LocalizedStringKey(subtitle))
                     .foregroundStyle(.secondary)
-                    .font(.system(size: 14, weight: .regular, design: .rounded))
+                    .font(.system(size: 12, weight: .regular, design: .rounded))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             Spacer()
             Image(systemName: "chevron.right")
