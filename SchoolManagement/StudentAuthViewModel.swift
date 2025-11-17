@@ -45,7 +45,7 @@ final class StudentAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Failed to register. Please try again."
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "student_register_error"
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -64,7 +64,7 @@ final class StudentAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Login failed. Please try again."
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "student_sign_in_error"
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -94,11 +94,11 @@ private extension StudentAuthViewModel {
             case .invalidInput(let message):
                 return message
             case .duplicateEmail:
-                return "An account with this email already exists"
+                return "student_duplicate_account_error"
             case .invalidCredentials:
-                return "Incorrect email or password"
+                return "student_incorrect_credentials_error"
             case .underlying:
-                return "Something went wrong. Please try again."
+                return "student_unknown_error"
             }
         }
         
@@ -123,11 +123,11 @@ private extension StudentAuthViewModel {
     func validateInputs(requirePassword: Bool = true) -> AuthError? {
         let e = email.trimmingCharacters(in: .whitespacesAndNewlines)
         let p = password.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !e.isEmpty else { return .invalidInput("Please enter email") }
+        guard !e.isEmpty else { return .invalidInput("student_enter_email_error") }
         if requirePassword {
-            guard !p.isEmpty else { return .invalidInput("Please enter password") }
+            guard !p.isEmpty else { return .invalidInput("student_enter_password_error") }
         }
-        guard e.contains("@"), e.contains(".") else { return .invalidInput("Please enter a valid email") }
+        guard e.contains("@"), e.contains(".") else { return .invalidInput("student_enter_valid_email_error") }
         return nil
     }
 

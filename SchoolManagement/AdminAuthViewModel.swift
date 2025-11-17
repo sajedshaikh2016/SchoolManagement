@@ -47,7 +47,7 @@ final class AdminAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Failed to register admin. Please try again."
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "admin_register_error"
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -66,7 +66,7 @@ final class AdminAuthViewModel: ObservableObject {
                 guard let self = self else { return }
                 if case let .failure(error) = completion {
                     self.isAuthenticated = false
-                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "Login failed. Please try again."
+                    self.errorMessage = (error as? AuthError)?.errorDescription ?? "admin_sign_in_error"
                 }
             } receiveValue: { [weak self] success in
                 guard let self = self else { return }
@@ -97,11 +97,11 @@ private extension AdminAuthViewModel {
             case .invalidInput(let message):
                 return message
             case .duplicateUsername:
-                return "An admin with this username already exists"
+                return "admin_duplicate_account_error"
             case .invalidCredentials:
-                return "Invalid admin credentials"
+                return "admin_incorrect_credentials_error"
             case .underlying:
-                return "Something went wrong. Please try again."
+                return "admin_unknown_error"
             }
         }
 
@@ -127,9 +127,9 @@ private extension AdminAuthViewModel {
     func validateInputs(requirePassword: Bool = true) -> AuthError? {
         let u = username.trimmingCharacters(in: .whitespacesAndNewlines)
         let p = password.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !u.isEmpty else { return .invalidInput("Please enter admin username") }
+        guard !u.isEmpty else { return .invalidInput("admin_enter_email_error") }
         if requirePassword {
-            guard !p.isEmpty else { return .invalidInput("Please enter password") }
+            guard !p.isEmpty else { return .invalidInput("admin_enter_password_error") }
         }
         return nil
     }

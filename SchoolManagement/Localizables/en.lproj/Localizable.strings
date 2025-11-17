@@ -30,8 +30,16 @@
 "student_register_button" = "Register";
 "student_reset_password_button" = "Reset Password";
 "student_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
-"student_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
 "student_or_separator" = "OR";
+"student_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
+"student_duplicate_account_error" = "An account with this email already exists. Please sign in instead.";
+"student_incorrect_credentials_error" = "Incorrect email or password.";
+"student_unknown_error" = "Something went wrong. Please try again.";
+"student_register_error" = "Failed to register. Please try again.";
+"student_sign_in_error" = "Failed to sign in. Please try again.";
+"student_enter_email_error" = "Please enter your email.";
+"student_enter_valid_email_error" = "Please enter a valid email address.";
+"student_enter_password_error" = "Please enter your password.";
 
 // Admin authentication view
 "admin_auth_title_sign_in" = "Administrator Sign In";
@@ -50,3 +58,12 @@
 "admin_register_terms_policy" = "I agree to the **Terms** and **Privacy Policy**.";
 "admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
 "admin_or_separator" = "OR";
+"admin_register_terms_policy_error" = "Please agree to the Terms and Privacy Policy";
+"admin_duplicate_account_error" = "An admin with this username already exists. Please sign in instead.";
+"admin_incorrect_credentials_error" = "Incorrect email or password.";
+"admin_unknown_error" = "Something went wrong. Please try again.";
+"admin_register_error" = "Failed to register. Please try again.";
+"admin_sign_in_error" = "Failed to sign in. Please try again.";
+"admin_enter_email_error" = "Please enter admin email.";
+"admin_enter_valid_email_error" = "Please enter a valid admin email address.";
+"admin_enter_password_error" = "Please enter admin password.";
