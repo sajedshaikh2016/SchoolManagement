@@ -40,6 +40,8 @@ struct AdminAuthenticationView: View {
 
             primaryActionButton
                 .disabled(!isFormValid)
+            
+            dontHaveAccountText
 
             Spacer()
         }
@@ -152,6 +154,30 @@ private extension AdminAuthenticationView {
                 .foregroundStyle(Color(uiColor: .darkGray))
         }
         .buttonStyle(.plain)
+    }
+    
+    var dontHaveAccountText: some View {
+        HStack(spacing: 3) {
+            Text(authType == .login ? "admin_dont_have_account" : "admin_already_have_account")
+                .font(.system(size: 15, weight: .medium, design: .rounded))
+            
+            Button {
+                if authType == .login {
+                    withAnimation {
+                        self.authType = .register
+                    }
+                } else {
+                    withAnimation {
+                        self.authType = .login
+                    }
+                }
+            } label: {
+                Text(authType == .login ? "admin_register" : "admin_sign_in")
+                    .font(Font.system(size: 15, weight: .bold, design: .rounded))
+                    .foregroundColor(colorScheme == .light ? .black : .white)
+            }
+
+        }
     }
 
     var primaryActionButton: some View {
