@@ -41,6 +41,17 @@
                ReferencedContainer = "container:SchoolManagement.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B419860D2ECCC6CC0009E74C"
+               BuildableName = "SchoolManagementUnitTests.xctest"
+               BlueprintName = "SchoolManagementUnitTests"
+               ReferencedContainer = "container:SchoolManagement.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
