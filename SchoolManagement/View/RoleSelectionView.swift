@@ -65,6 +65,7 @@ private struct RoleOption<Destination: View>: View {
 }
 
 private struct RoleOptionLabel: View {
+    @Environment(\.colorScheme) private var colorScheme
     let systemImage: String
     let title: String
     let subtitle: String
@@ -92,11 +93,14 @@ private struct RoleOptionLabel: View {
         .foregroundStyle(Color(uiColor: .black))
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color(uiColor: .systemGray6))
+                .fill(colorScheme == .light ? Color(uiColor: .systemGray6) : .white)
         )
     }
 }
 
 #Preview {
-    NavigationStack { RoleSelectionView() }
+    NavigationStack {
+        RoleSelectionView()
+            .preferredColorScheme(.light)
+    }
 }
