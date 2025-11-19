@@ -29,6 +29,23 @@
 		B4A910942EBB318C00A17795 /* SchoolManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SchoolManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B44A540A2ECE1651007002D1 /* Exceptions for "SchoolManagement" folder in "SchoolManagementUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				View/Admin/ManageStudentsView.swift,
+			);
+			target = B4935FFD2ECB7EFE00BBF1F6 /* SchoolManagementUITests */;
+		};
+		B44A540B2ECE1651007002D1 /* Exceptions for "SchoolManagement" folder in "SchoolManagementUnitTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				View/Admin/ManageStudentsView.swift,
+			);
+			target = B419860D2ECCC6CC0009E74C /* SchoolManagementUnitTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B419860F2ECCC6CC0009E74C /* SchoolManagementUnitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -42,6 +59,10 @@
 		};
 		B4A910962EBB318C00A17795 /* SchoolManagement */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B44A540A2ECE1651007002D1 /* Exceptions for "SchoolManagement" folder in "SchoolManagementUITests" target */,
+				B44A540B2ECE1651007002D1 /* Exceptions for "SchoolManagement" folder in "SchoolManagementUnitTests" target */,
+			);
 			path = SchoolManagement;
 			sourceTree = "<group>";
 		};

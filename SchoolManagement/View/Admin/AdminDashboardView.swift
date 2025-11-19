@@ -37,6 +37,12 @@ struct AdminDashboardView: View {
                     } label: {
                         Label("Profile", systemImage: "person.crop.circle")
                     }
+                    
+                    NavigationLink {
+                        ManageStudentsView()
+                    } label: {
+                        Label("Manage Students", systemImage: "person.badge.plus")
+                    }
 
                     Button(role: .destructive) {
                         adminVM.logout()
