@@ -155,7 +155,7 @@ struct StudentRegistrationView: View {
                 Section(header: Text("Images")) {
 
                     PhotosPickerView(
-                        title: "Student Image",
+                        title: "Student's Image",
                         imageData: viewModel.studentProfile.studentImage,
                         selectedItem: $selectedStudentImageItem
                     ) { newItem in
