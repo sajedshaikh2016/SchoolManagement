@@ -34,6 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				View/Admin/ManageStudentsView.swift,
+				View/Admin/StudentRegistrationView.swift,
 				View/Utility/PhotosPickerView.swift,
 			);
 			target = B4935FFD2ECB7EFE00BBF1F6 /* SchoolManagementUITests */;
@@ -42,6 +43,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				View/Admin/ManageStudentsView.swift,
+				View/Admin/StudentRegistrationView.swift,
 				View/Utility/PhotosPickerView.swift,
 			);
 			target = B419860D2ECCC6CC0009E74C /* SchoolManagementUnitTests */;
