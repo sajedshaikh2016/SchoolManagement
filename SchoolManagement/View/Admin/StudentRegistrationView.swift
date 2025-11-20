@@ -233,7 +233,7 @@ struct StudentRegistrationView: View {
                     }
                 }
             }
-            .navigationTitle("Registration Form")
+            .navigationTitle("Student Registration")
         }
     }
 }

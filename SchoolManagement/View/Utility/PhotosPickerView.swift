@@ -15,7 +15,7 @@ struct PhotosPickerView: View {
     let onItemChange: (PhotosPickerItem?) -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .center, spacing: 12) {
             HStack(alignment: .center, spacing: 16) {
                 ZStack(alignment: .bottomTrailing) {
                     Group {
@@ -71,7 +71,7 @@ struct PhotosPickerView: View {
 
             HStack(spacing: 12) {
                 PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                    Label("Select photo", systemImage: "photo.on.rectangle.angled")
+                    Label("", systemImage: "photo.on.rectangle.angled")
                         .font(.body)
                 }
                 .buttonStyle(.borderedProminent)
@@ -82,7 +82,7 @@ struct PhotosPickerView: View {
                         selectedItem = nil
                         onItemChange(nil)
                     } label: {
-                        Label("Remove", systemImage: "trash")
+                        Label("", systemImage: "trash")
                     }
                     .buttonStyle(.bordered)
                 }
